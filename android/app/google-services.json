@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "99208573863",
+    "project_id": "automind-f061d",
+    "storage_bucket": "automind-f061d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99208573863:android:985b5f75c3e79c65ba3c82",
+        "android_client_info": {
+          "package_name": "com.automind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99208573863-0tan2forusg5l23ok0qu7hso9qfq96l5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.automind",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "99208573863-g3t7cebkcb7d6kg2l1f6d7mdkdkr080i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjBFxyG6IQhcJ0l7oai4ivb140mlrx4LI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99208573863-g3t7cebkcb7d6kg2l1f6d7mdkdkr080i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
