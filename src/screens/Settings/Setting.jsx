@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Alert, Switch} from 'react-native';
+import {View, Text, TouchableOpacity, Alert, Switch, Image} from 'react-native';
 import styles from './style';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {LOGO_IMAGE} from '../../assets';
 import {useTheme} from '../ThemeContext/ThemeContext';
 
 const Setting = ({navigation}) => {
@@ -41,7 +42,8 @@ const Setting = ({navigation}) => {
   return (
     <View style={themeStyle.container}>
       <View style={themeStyle.titleBox}>
-        <Text style={themeStyle.title}>Settings</Text>
+        <Text style={themeStyle.title}>AUTOMIND</Text>
+        <Image source={LOGO_IMAGE} style={themeStyle.logoImage} />
       </View>
 
       <TouchableOpacity

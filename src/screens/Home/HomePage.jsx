@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Animated,
   Easing,
+  BackHandler,
+  Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {UserContext} from '../UserContext/UserContext';
@@ -15,12 +17,13 @@ import {banner_Image, image, serial_image, Top_Image} from '../../assets';
 import {useTheme} from '../ThemeContext/ThemeContext';
 
 const HomePage = ({navigation}) => {
-  const {userData} = useContext(UserContext); // Use UserContext to get userData
+  const {userData} = useContext(UserContext);
   const jumpAnimation = useRef(new Animated.Value(0)).current;
   const [isEnabled, setIsEnabled] = useState(false);
   const {theme, toggleTheme, isDarkMode} = useTheme();
 
   const themeStyle = styles(theme);
+
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
     toggleTheme();
@@ -44,6 +47,33 @@ const HomePage = ({navigation}) => {
       ]),
     ).start();
   }, []);
+
+  useEffect(() => {
+    const handleBackPress = () => {
+      if (navigation.isFocused()) {
+        Alert.alert('Exit App', 'Are you sure you want to exit the app?', [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          {
+            text: 'Exit',
+            style: 'destructive',
+            onPress: () => {
+              BackHandler.exitApp();
+            },
+          },
+        ]);
+        return true;
+      }
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+  }, [navigation]);
 
   return (
     <SafeAreaView style={themeStyle.container}>

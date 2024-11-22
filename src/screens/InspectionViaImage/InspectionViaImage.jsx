@@ -120,7 +120,7 @@ const InspectionViaImage = ({navigation}) => {
       });
   
       try {
-        const response = await axios.post("http://192.168.0.103:3000/predict", formData, {
+        const response = await axios.post("http://172.28.2.5:3000/predict", formData, {
           headers: {'Content-Type': 'multipart/form-data'},
         });
   

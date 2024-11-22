@@ -1,25 +1,38 @@
 import {StyleSheet} from 'react-native';
 import colors from '../../constants/colors';
+import fonts from '../../constants/fonts';
 const styles = theme =>
   StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.background,
     },
+
     titleBox: {
-      width: 395,
-      height: 60,
-      top: 42,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '395',
+      height: 42,
+      marginTop: 30,
     },
+    logoImage: {
+      width: 60,
+      height: 80,
+
+      top: 10,
+    },
+
     title: {
-      width: 81,
-      height: 32,
-      top: 15,
-      left: 147,
       fontWeight: '700',
-      fontSize: 20,
+      fontSize: 30,
+
       lineHeight: 32,
+      top: 10,
+      marginRight: 20,
+      left: 10,
       color: theme.primary,
+      fontStyle: 'italic',
     },
     optionContainer: {
       backgroundColor: colors.background,
@@ -47,7 +60,7 @@ const styles = theme =>
     },
     optionText: {
       flex: 1,
-      fontSize: 14,
+      fontSize: 15,
       fontWeight: '700',
       color: 'black',
       lineHeight: 20,

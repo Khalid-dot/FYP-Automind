@@ -158,20 +158,35 @@ def predict():
 
 @app.route('/extract_serial', methods=['POST'])
 def handle_serial_extraction():
-    if 'imagefile' not in request.files:
-        return jsonify({"error": "No file uploaded"}), 400
+    # If a serial number is provided in JSON payload
+    if request.is_json:
+        data = request.get_json()
+        if 'serialNumber' in data:
+            serial_number = data['serialNumber']
+            print(f"Received manual serial number: {serial_number}")
 
-    imagefile = request.files['imagefile']
-    image_path = "./uploads/" + imagefile.filename
-    os.makedirs("./uploads", exist_ok=True)
-    imagefile.save(image_path)
+            # Simulate processing of serial number for details
+            tire_details = process_tire_details([serial_number])
+            return jsonify({"tire_details": tire_details}), 200
 
-    detected_text, error = extract_text_from_image(image_path)
-    if error:
-        return jsonify({"error": error}), 500
+    # If an image file is uploaded
+    if 'imagefile' in request.files:
+        imagefile = request.files['imagefile']
+        image_path = "./uploads/" + imagefile.filename
+        os.makedirs("./uploads", exist_ok=True)
+        imagefile.save(image_path)
 
-    tire_details = process_tire_details(detected_text)
-    return jsonify({"tire_details": tire_details})
+        # Extract text from the uploaded image
+        detected_text, error = extract_text_from_image(image_path)
+        if error:
+            return jsonify({"error": error}), 500
+
+        # Process tire details from the detected text
+        tire_details = process_tire_details(detected_text)
+        return jsonify({"tire_details": tire_details}), 200
+
+    return jsonify({"error": "No valid input provided"}), 400
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=3000, debug=True)
