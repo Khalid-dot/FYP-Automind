@@ -17,22 +17,23 @@ const styles = theme =>
       marginTop: 30,
     },
     logoImage: {
-      width: 60,
-      height: 80,
-
-      top: 10,
+      width: 350,
+      height: 250,
+      resizeMode: 'contain',
+      top: 20,
     },
 
     title: {
       fontWeight: '700',
-      fontSize: 30,
-
-      lineHeight: 32,
+      fontSize: 40,
+      lineHeight: 52,
       top: 10,
       marginRight: 20,
+      // marginTop: 1,
       left: 10,
       color: theme.primary,
-      fontStyle: 'italic',
+      fontFamily: fonts.bebas,
+      // fontStyle: 'italic',
     },
     optionContainer: {
       backgroundColor: colors.background,

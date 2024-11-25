@@ -5,7 +5,8 @@ const styles = theme =>
   StyleSheet.create({
     container: {
       flex: 1,
-
+      paddingTop: 20,
+      marginBottom: 50,
       backgroundColor: theme.background,
     },
 
@@ -21,12 +22,12 @@ const styles = theme =>
       fontSize: 25,
     },
     subtitle: {
-      width: 318,
-      height: 20,
-      fontSize: 14,
-      marginLeft: 21,
-      color: theme.primary,
-      lineHeight: 25,
+      width: '90%',  // Adjusted for responsiveness to parent container
+      fontSize: 14,  // Good for subtitles
+      marginLeft: 21,  // Keeps left alignment
+      color: theme.primary,  // Theming for text color
+      lineHeight: 15,  // Adjust lineHeight for better readability
+      marginTop: 10,  // Adds space above the subtitle
     },
     card: {
       width: 343,
@@ -123,6 +124,7 @@ const styles = theme =>
       height: 20,
       fontSize: 14,
       fontWeight: '500',
+      textAlign: 'center',
       color: colors.textPrimary,
     },
   });

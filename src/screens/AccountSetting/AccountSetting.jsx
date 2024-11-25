@@ -43,6 +43,10 @@ const AccountSetting = ({navigation}) => {
         if (currentUser) {
           const userId = currentUser.uid;
           setUserId(userId);
+          
+
+          
+
 
           const userDoc = await firestore()
             .collection('users')

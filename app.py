@@ -5,8 +5,13 @@ import re
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.applications.mobilenet import preprocess_input
+from tensorflow.keras.applications import MobileNet
+from tensorflow.keras.applications.mobilenet import preprocess_input, decode_predictions
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
+import numpy as np
 
 app = Flask(__name__)
 CORS(app)
@@ -14,8 +19,13 @@ CORS(app)
 subscription_key = '9IvAlksxUB8bT7j7tueBvqUDMsPd8kpTCyKcSVBHsf4gNDvK4RhbJQQJ99AJACYeBjFXJ3w3AAAFACOGCRkg'
 endpoint = 'https://eastus.api.cognitive.microsoft.com/'
 
+# Load the pre-trained MobileNet model
+mobilenet_model = MobileNet(weights='imagenet')
+
 # Load your custom-trained model
-model = load_model("./models/mobilenet_model_finetune.keras")
+model = load_model("./models/mobilenet_model_finetune.keras") #for predicting Tyre Categorry
+model2 = load_model("./models/TI.keras") #for tyre vs nonTyres Pictures
+
 
 # Function to extract text from an image using Azure OCR
 def extract_text_from_image(image_path):
@@ -131,30 +141,76 @@ def process_tire_details(detected_text):
 
     return tire_details
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    if 'imagefile' not in request.files:
-        return jsonify({"error": "No file uploaded"}), 400
+def validate_image_is_tyre(image_path):
+    try:
+        print(f"Validating image for tyre content: {image_path}")
 
-    imagefile = request.files['imagefile']
-    image_path = "./temp/" + imagefile.filename
+        # Load and preprocess the image
+        img = image.load_img(image_path, target_size=(128,128))
+        img_array = image.img_to_array(img)
+        img_array = np.expand_dims(img_array, axis=0)
+        img_array = preprocess_input(img_array)
 
-    if not os.path.exists("./temp"):
-        os.makedirs("./temp")
+        # Predict using model2
+        predictions = model2.predict(img_array)
+        is_tyre = predictions[0][0] >= 0.5  # Check if the image is likely a tyre based on your model's output
 
-    imagefile.save(image_path)
+        return is_tyre
 
-    image = load_img(image_path, target_size=(128, 128))
-    image = img_to_array(image)
-    image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
-    image = preprocess_input(image)
+    except Exception as e:
+        print(f"Error in tyre validation: {e}")
+        return False
 
-    yhat = model.predict(image)
-    labels = ['CRACKED', 'EXCELLENT', 'GOOD', 'POOR']
-    predicted_label = labels[yhat.argmax()]
-    confidence = yhat.max() * 100
 
-    return jsonify({"label": predicted_label, "confidence": f"{confidence:.2f}%"})
+@app.route('/predict_multiple', methods=['POST'])
+def predict_multiple():
+    if 'imagefiles' not in request.files:
+        return jsonify({"error": "No files uploaded"}), 400
+
+    imagefiles = request.files.getlist('imagefiles')
+    results = []
+    final_decision = {
+        "details": [],
+        "final_label": None
+    }
+
+    for imagefile in imagefiles:
+        image_path = "./uploads/" + imagefile.filename
+        os.makedirs("./uploads", exist_ok=True)
+        imagefile.save(image_path)
+
+        # Validate if the image is a tyre using the tyre vs non-tyre model
+        if not validate_image_is_tyre(image_path):
+            results.append({"filename": imagefile.filename, "error": "Not a tyre image"})
+            continue
+
+        # Process the image with the tyre categorization model if it's a tyre
+        img = load_img(image_path, target_size=(128, 128))
+        img_array = img_to_array(img)
+        img_array = np.expand_dims(img_array, axis=0)
+        img_array = preprocess_input(img_array)
+
+        yhat = model.predict(img_array)
+        labels = ['CRACKED', 'EXCELLENT', 'GOOD', 'POOR']
+        predicted_label = labels[np.argmax(yhat)]
+        confidence = np.max(yhat) * 100
+
+        results.append({
+            "filename": imagefile.filename,
+            "label": predicted_label,
+            "confidence": f"{confidence:.2f}%"
+        })
+
+    # Determine the most severe label based on predefined priorities
+    labels_priority = {'POOR': 0, 'CRACKED': 1, 'GOOD': 2, 'EXCELLENT': 3}
+    if results:
+        final_decision['details'] = results
+        # Aggregate results for sensitivity-based final decision
+        final_decision['final_label'] = min(results, key=lambda x: labels_priority.get(x.get('label', ''), float('inf'))).get('label')
+
+    return jsonify(final_decision)
+
+
 
 @app.route('/extract_serial', methods=['POST'])
 def handle_serial_extraction():

@@ -1,18 +1,54 @@
-import React, {useState} from 'react';
-import {Text, SafeAreaView, View} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, SafeAreaView, View, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+
 import styles from './styles';
-import {useTheme} from '../ThemeContext/ThemeContext';
+import { useTheme } from '../ThemeContext/ThemeContext';
 
 const History = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const {theme, toggleTheme, isDarkMode} = useTheme();
-
+  const [inspectionResults, setInspectionResults] = useState([]);
+  const { theme } = useTheme();
   const themeStyle = styles(theme);
-  const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
-    toggleTheme();
+
+  // Helper function to get percentage range based on condition
+  const getHealthPercentage = (condition) => {
+    switch (condition) {
+      case 'CRACKED':
+        return '0% - 24%';
+      case 'POOR':
+        return '25% - 49%';
+      case 'GOOD':
+        return '50% - 74%';
+      case 'EXCELLENT':
+        return '75% - 100%';
+      default:
+        return 'Unknown'; // Default case if none of the above match
+    }
   };
+
+  useEffect(() => {
+    const fetchInspectionResults = async () => {
+      const user = auth().currentUser;
+      if (user) {
+        const snapshot = await firestore()
+          .collection('InspectionResults')
+          .doc(user.uid)
+          .collection('Results')
+          .get();
+
+        const results = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+        setInspectionResults(results);
+      }
+    };
+
+    fetchInspectionResults();
+  }, []);
 
   return (
     <SafeAreaView style={themeStyle.container}>
@@ -20,34 +56,29 @@ const History = () => {
       <Text style={themeStyle.subtitle}>
         Here is the list of inspections that you've made in the past.
       </Text>
-
-      <View style={themeStyle.card}>
-        <View style={themeStyle.row}>
-          <View style={themeStyle.iconContainer}>
-            <Ionicons name="camera-outline" size={30} color="#091155" />
+      <ScrollView>
+        {inspectionResults.map(result => (
+          <View key={result.id} style={themeStyle.card}>
+            <View style={themeStyle.row}>
+              <View style={themeStyle.iconContainer}>
+                <Ionicons name="camera-outline" size={30} color="#091155" />
+              </View>
+              <View style={themeStyle.detailsContainer}>
+                <Text style={themeStyle.cardTitle}>Tyre Inspection</Text>
+                <Text style={themeStyle.healthText}>{getHealthPercentage(result.result)} Health</Text>
+              </View>
+              <View style={themeStyle.dateContainer}>
+                <Text style={themeStyle.dateText}>{result.date}</Text>
+                <Text style={themeStyle.timeText}>{result.time}</Text>
+              </View>
+            </View>
+            <View style={themeStyle.divider} />
+            <View style={themeStyle.conditionContainer}>
+              <Text style={themeStyle.conditionText}>{result.result} Condition</Text>
+            </View>
           </View>
-          <View style={themeStyle.detailsContainer}>
-            <Text style={themeStyle.cardTitle}>Tyre Inspection</Text>
-            <Text style={themeStyle.healthText}>70% Health</Text>
-          </View>
-          <View style={themeStyle.dateContainer}>
-            <Text style={themeStyle.dateText}>10 Sep 2024</Text>
-            <Text style={themeStyle.timeText}>6h30m</Text>
-          </View>
-        </View>
-
-        <View style={themeStyle.divider} />
-
-        <View style={themeStyle.healthContainer}>
-          <Ionicons name="time-outline" size={20} color="#8696BB" />
-          <Text style={themeStyle.healthLabel}>Tyre Health</Text>
-        </View>
-
-        {/* Bottom Section with Condition */}
-        <View style={themeStyle.conditionContainer}>
-          <Text style={themeStyle.conditionText}>Good Condition</Text>
-        </View>
-      </View>
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };

@@ -177,11 +177,10 @@
 
 //
 
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   FlatList,
-  ScrollView,
   Image,
   TouchableOpacity,
   TextInput,
@@ -192,20 +191,13 @@ import {
 } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import styles from './style';
-import {useTheme} from '../ThemeContext/ThemeContext';
+import { useTheme } from '../ThemeContext/ThemeContext';
 
 const Product = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isEnabled, setIsEnabled] = useState(false);
-  const {theme, toggleTheme, isDarkMode} = useTheme();
-
+  const { theme } = useTheme();
   const themeStyle = styles(theme);
-  const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
-    toggleTheme();
-  };
 
   useEffect(() => {
     fetchProducts();
@@ -227,30 +219,6 @@ const Product = () => {
     }
   };
 
-  // Handle product selection
-  const handleProductSelect = product => {
-    setSelectedProduct(product);
-  };
-
-  // Update selected product in Firestore
-  const updateProduct = async () => {
-    if (!selectedProduct || !selectedProduct.id) {
-      Alert.alert('Error', 'No product selected');
-      return;
-    }
-
-    try {
-      const productDocRef = firestore()
-        .collection('Products')
-        .doc(selectedProduct.id);
-      await productDocRef.set(selectedProduct, {merge: true});
-      Alert.alert('Success', 'Product updated successfully');
-      fetchProducts(); // Refresh the product list after update
-    } catch (error) {
-      console.error('Error updating product:', error);
-      Alert.alert('Error', 'Failed to update product');
-    }
-  };
   const openURL = Url => {
     if (Url) {
       Linking.openURL(Url).catch(() => {
@@ -260,6 +228,7 @@ const Product = () => {
       Alert.alert('Error', 'No URL found');
     }
   };
+
   // Render product item
   const renderProductItem = ({item}) => (
     <TouchableOpacity
@@ -279,21 +248,18 @@ const Product = () => {
 
   return (
     <SafeAreaView style={themeStyle.Container}>
-      <ScrollView contentContainerStyle={themeStyle.scrollContainer}>
-        <Text style={themeStyle.title}>Products</Text>
-        <Text style={themeStyle.subtitle}>
-          Here is a list of some products.
-        </Text>
-        <View style={{paddingBottom: 20}}>
-          <FlatList
-            data={products}
-            renderItem={renderProductItem}
-            keyExtractor={item => item.id}
-            numColumns={2}
-            contentContainerStyle={themeStyle.list}
-          />
-        </View>
-      </ScrollView>
+      <Text style={themeStyle.title}>Products</Text>
+      <Text style={themeStyle.subtitle}>
+        Here is a list of some products.
+      </Text>
+      <FlatList
+        data={products}
+        renderItem={renderProductItem}
+        keyExtractor={item => item.id}
+        numColumns={2}
+        contentContainerStyle={themeStyle.list}
+        ListHeaderComponent={<View style={{paddingBottom: 20}} />}
+      />
     </SafeAreaView>
   );
 };

@@ -19,6 +19,7 @@ const InspectionViaImage = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [predictions, setPredictions] = useState([]);
+  const [nonTyreDetected, setNonTyreDetected] = useState(false);
   const {theme} = useTheme();
   const themeStyle = styles(theme);
 
@@ -108,51 +109,69 @@ const InspectionViaImage = ({navigation}) => {
       return;
     }
   
-    const validImages = images.filter(image => image !== null);
-    let predictionResult = null;
+    const formData = new FormData();
+    images.forEach((image, index) => {
+      if (image) {
+        formData.append('imagefiles', {
+          uri: image.uri,
+          type: 'image/jpeg',
+          name: `image${index}.jpg`,
+        });
+      }
+    });
   
-    for (const image of validImages) {
-      const formData = new FormData();
-      formData.append('imagefile', {
-        uri: image.uri,
-        type: 'image/jpeg',
-        name: 'image.jpg',
+    try {
+      const response = await axios.post("http://192.168.0.103:3000/predict_multiple", formData, {
+        headers: {'Content-Type': 'multipart/form-data'},
       });
   
-      try {
-        const response = await axios.post("http://172.28.2.5:3000/predict", formData, {
-          headers: {'Content-Type': 'multipart/form-data'},
-        });
-  
-        predictionResult = response.data.label; // Get the first prediction result
-        break; // Stop after the first valid image
-      } catch (error) {
-        console.error('Error uploading image:', error);
-        Alert.alert('Error', 'Failed to get prediction from server.');
-        return;
+      // Check for non-tyre detection in the response
+      if (response.data.details && response.data.details.some(detail => detail.error === "Not a tyre image")) {
+        setNonTyreDetected(true);
+        Alert.alert('Non-Tyre Image Detected', 'One or more uploaded images are not tyres.');
+      } else {
+        setNonTyreDetected(false); // reset the state if subsequent uploads are valid
+        // Proceed to results page if a valid tyre image was processed
+        if (response.data.final_label) {
+          navigation.navigate('ResultsViaImage', {prediction: response.data.final_label});
+        } else {
+          Alert.alert('No Valid Tyre Images', 'Failed to process any valid tyre images.');
+        }
       }
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      Alert.alert('Error', 'Failed to get prediction from server.');
     }
-  
-    navigation.navigate('ResultsViaImage', {prediction: predictionResult});
   };
+  
+  
   
 
   return (
     <View style={themeStyle.container}>
+      {/* Back Button */}
       <TouchableOpacity
         style={themeStyle.backButton}
         onPress={() => navigation.navigate('HomePage')}>
         <Ionicons
           name="arrow-back"
-          size={10}
+          size={24}
           color="#091155"
           style={themeStyle.icon}
         />
         <Text style={themeStyle.title}>Inspection Via Images</Text>
       </TouchableOpacity>
-
+  
+      {/* Error message for non-tyre images */}
+      {nonTyreDetected && (
+        <View style={themeStyle.nonTyreCard}>
+          {/* <Text style={themeStyle.nonTyreText}>One or more uploaded images are not tyres. Please upload only tyre images.</Text> */}
+        </View>
+      )}
+  
       <Text style={themeStyle.subtitle}>Tyre Images</Text>
-
+  
+      {/* Image Grid */}
       <View style={themeStyle.gridContainer}>
         {images.map((image, index) => (
           <View key={index} style={themeStyle.gridButton}>
@@ -166,7 +185,7 @@ const InspectionViaImage = ({navigation}) => {
                 <Text style={themeStyle.buttonText}>+</Text>
               )}
             </TouchableOpacity>
-
+  
             {image && (
               <TouchableOpacity
                 style={themeStyle.deleteButton}
@@ -177,12 +196,14 @@ const InspectionViaImage = ({navigation}) => {
           </View>
         ))}
       </View>
-
+  
+      {/* Check Now Button */}
       <TouchableOpacity style={themeStyle.checkbutton} onPress={sendImageForPrediction}>
         <Text style={themeStyle.checkbuttonText}>Check Now</Text>
         <Ionicons name="arrow-forward" size={20} color="white" />
       </TouchableOpacity>
-
+  
+      {/* Image Selection Modal */}
       <Modal
         isVisible={isModalVisible}
         onBackdropPress={toggleModal}
@@ -211,6 +232,7 @@ const InspectionViaImage = ({navigation}) => {
       </Modal>
     </View>
   );
+  
 };
 
 export default InspectionViaImage;
