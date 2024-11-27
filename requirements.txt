@@ -1,6 +1,6 @@
 Flask>=2.2.3
 Flask-Cors==5.0.0
-tensorflow==2.14.0
+tensorflow==2.14.0  # Use the full TensorFlow package
 scikit-learn==1.5.2
 matplotlib==3.9.2
 numpy==1.25.0
