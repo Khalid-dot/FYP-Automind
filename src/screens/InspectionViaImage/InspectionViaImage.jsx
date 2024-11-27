@@ -167,7 +167,7 @@ const InspectionViaImage = ({navigation}) => {
       {/* Error message for non-tyre images */}
       {nonTyreDetected && (
         <View style={themeStyle.nonTyreCard}>
-          {/* <Text style={themeStyle.nonTyreText}>One or more uploaded images are not tyres. Please upload only tyre images.</Text> */}
+          {/* <Text style={themeStyle.nonTy.reText}>One or more uploaded images are not tyres. Please upload only tyre images.</Text> */}
         </View>
       )}
   
