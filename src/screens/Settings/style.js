@@ -61,8 +61,8 @@ const styles = theme =>
     },
     optionText: {
       flex: 1,
-      fontSize: 15,
-      fontWeight: '700',
+      fontSize: 16,
+      fontWeight: '600',
       color: 'black',
       lineHeight: 20,
     },

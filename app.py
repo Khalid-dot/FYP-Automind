@@ -244,5 +244,7 @@ def handle_serial_extraction():
     return jsonify({"error": "No valid input provided"}), 400
 
 
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=3000, debug=True)

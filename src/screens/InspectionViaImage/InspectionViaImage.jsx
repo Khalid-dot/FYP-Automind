@@ -152,15 +152,17 @@ const InspectionViaImage = ({navigation}) => {
       {/* Back Button */}
       <TouchableOpacity
         style={themeStyle.backButton}
-        onPress={() => navigation.navigate('HomePage')}>
+        onPress={() => navigation.goBack()}>
         <Ionicons
           name="arrow-back"
           size={24}
           color="#091155"
           style={themeStyle.icon}
         />
-        <Text style={themeStyle.title}>Inspection Via Images</Text>
+        
       </TouchableOpacity>
+
+      <Text style={themeStyle.title}>Inspection Via Images</Text>
   
       {/* Error message for non-tyre images */}
       {nonTyreDetected && (

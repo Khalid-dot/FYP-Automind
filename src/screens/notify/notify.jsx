@@ -46,7 +46,7 @@ const WeatherNotifications = ({navigation}) => {
       <View style={themeStyle.textBox}>
         <TouchableOpacity
           style={themeStyle.backButton}
-          onPress={() => navigation.navigate('HomePage')}>
+          onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={24} color="#1A237E" />
         </TouchableOpacity>
         <Text style={themeStyle.title}>Weather Notifications</Text>

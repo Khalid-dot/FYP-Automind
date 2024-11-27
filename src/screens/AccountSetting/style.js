@@ -10,7 +10,7 @@ const styles = theme =>
       flexDirection: 'row',
       alignItems: 'center',
 
-      marginTop: 40,
+      marginTop: 20,
       width: 347,
       height: 60,
       borderRadius: 10,
@@ -18,10 +18,10 @@ const styles = theme =>
       alignSelf: 'center',
     },
     title: {
-      fontSize: 20,
-      fontWeight: '600',
+      fontSize: 25,
       color: theme.primary,
-      marginLeft: 50,
+      fontWeight: 'bold',
+      marginLeft: 30,
     },
     backButton: {
       backgroundColor: colors.backButton,
@@ -30,7 +30,6 @@ const styles = theme =>
       width: 42,
       height: 42,
       borderRadius: 10,
-      marginRight: 10,
     },
 
     frame: {
@@ -116,7 +115,6 @@ const styles = theme =>
     modalTitle: {
       fontSize: 20,
       fontWeight: 'bold',
-      marginBottom: 15,
       marginBottom: 15,
       textAlign: 'center',
     },

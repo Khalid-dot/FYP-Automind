@@ -10,7 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {UserContext} from '../UserContext/UserContext';
+import { UserContext } from '../UserContext/UserContext';
 import styles from './style';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {banner_Image, image, serial_image, Top_Image} from '../../assets';
@@ -95,9 +95,12 @@ const HomePage = ({navigation}) => {
             />
           )}
 
-          <Text style={themeStyle.userName}>
-            {userData?.name || 'User Name'}
-          </Text>
+            <View style={{flexGrow: 1}}>
+              <Text style={themeStyle.userName} numberOfLines={1} ellipsizeMode="tail">
+                {userData?.name || 'User Name'}
+              </Text>
+            </View>
+
 
           <TouchableOpacity
             style={themeStyle.notificationButton}

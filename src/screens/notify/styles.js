@@ -9,9 +9,10 @@ const styles = theme =>
     },
     textBox: {
       flexDirection: 'row',
-      alignItems: 'center',
+      // alignItems: 'center',
 
       marginTop: 40,
+      marginLeft:-30,
       width: 347,
       height: 60,
       paddingHorizontal: 10,
@@ -27,10 +28,11 @@ const styles = theme =>
       marginRight: 20,
     },
     title: {
-      fontSize: 20,
-      fontWeight: '600',
+      fontSize: 25,
+      fontWeight: 'bold',
       color: theme.primary,
-      marginLeft: 30,
+      marginTop:4,
+      marginLeft: 5,
     },
     notificationList: {
       paddingHorizontal: 20,
@@ -59,21 +61,21 @@ const styles = theme =>
     weatherTitle: {
       width: 271,
       top: 10,
-      fontSize: 14,
-      fontWeight: '700',
+      fontSize: 16,
+      fontWeight: '600',
       color: colors.textPrimary,
       marginBottom: 10,
     },
     weatherTemp: {
       width: 271,
       fontWeight: '400',
-      fontSize: 14,
+      fontSize: 13,
       color: theme.primary,
-      marginBottom: 5,
+      marginBottom: 1,
     },
     weatherDate: {
       fontWeight: '400',
-      fontSize: 12,
+      fontSize: 13,
       color: colors.textSecondary,
     },
     clearButton: {

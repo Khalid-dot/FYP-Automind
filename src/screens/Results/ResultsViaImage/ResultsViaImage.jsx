@@ -54,15 +54,17 @@ const ResultsViaImage = ({ route, navigation }) => {
     <View style={themeStyle.container}>
       <TouchableOpacity
         style={themeStyle.backButton}
-        onPress={() => navigation.navigate('HomePage')}>
-        <Ionicons
+        onPress={() => navigation.goBack()}
+      >
+         <Ionicons
           name="arrow-back"
           size={24}
           color="#091155"
           style={themeStyle.icon}
-        />
-        <Text style={themeStyle.title}>RESULTS</Text>
+        />  
       </TouchableOpacity>
+
+      <Text style={themeStyle.title}>RESULTS</Text> 
   
       <View style={themeStyle.card}>
         <View style={themeStyle.cardHeader}>
@@ -115,9 +117,13 @@ const ResultsViaImage = ({ route, navigation }) => {
             <View style={themeStyle.tirepicture}></View>
           </View>
         </View>
-        <View style={themeStyle.button}>
-          <Text style={themeStyle.Textbutton}>View Products</Text>
-        </View>
+
+        <TouchableOpacity
+        style={themeStyle.button}
+        onPress={() => navigation.navigate('RecommendedProduct', { prediction })}>
+       <Text style={themeStyle.Textbutton}>View Products</Text>
+      </TouchableOpacity>
+
       </View>
     </View>
   );

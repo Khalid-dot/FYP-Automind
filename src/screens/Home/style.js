@@ -25,15 +25,14 @@ const styles = theme =>
       height: 200,
     },
     headerContainer: {
-      width: 36,
-      height: 36,
       position: 'absolute',
-      top: 20,
-      left: 20,
+      top: 15,
+      left: 7,
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: '#091155',
-      borderRadius: 20,
+      // justifyContent: 'space-between', // Spread elements across the row
+      width: '100%', // Ensure it spans the entire screen width
+      paddingHorizontal: 10, // Add horizontal padding
     },
     profileicon: {
       width: 24,
@@ -42,17 +41,18 @@ const styles = theme =>
       marginLeft: 6,
     },
     userName: {
-      width: 100,
-
+      flex: 1, // Allow text to grow in width
       fontSize: 16,
       fontWeight: '700',
-      marginLeft: 10,
+      marginLeft: 5,
+      marginTop:8,
       color: '#FFFF',
+      textAlign: 'left',
     },
     notificationButton: {
       width: 36,
       height: 35,
-      marginLeft: 170,
+      marginRight: 20,
       backgroundColor: '#E6E7EE',
       borderRadius: 20,
       padding: 5,

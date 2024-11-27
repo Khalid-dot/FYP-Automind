@@ -33,6 +33,7 @@ const colors = {
   borderBottomColor: '#ccc',
   ortext: 'grey',
   weatherTemp: '#8C8C8C',
+  temp:'#cccc00',
   title: '#2B2B2B',
   borderColor: '#F1F1F5',
   backgroundColor: 'E6E7EE',

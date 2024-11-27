@@ -21,6 +21,9 @@ import {ThemeProvider} from './src/screens/ThemeContext/ThemeContext';
 import notify from './src/screens/notify/notify';
 import ResultsViaSerialno from './src/screens/Results/ResultsViaSerialno';
 import ResultsViaImage from './src/screens/Results/ResultsViaImage/ResultsViaImage';
+
+import RecommendedProduct from './src/screens/RecommendedProduct/RecommendedProduct';
+import Product from './src/screens/Product/Product';
 import {UserProvider} from './src/screens/UserContext/UserContext';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import '@react-native-firebase/firestore';
@@ -98,6 +101,7 @@ const App = () => {
               <Stack.Screen name="TermsCondition" component={TermsCondition} />
               <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
               <Stack.Screen name="notify" component={notify} />
+              <Stack.Screen name="Product" component={Product} />
               <Stack.Screen
                 name="ResultsViaSerialno"
                 component={ResultsViaSerialno}
@@ -111,10 +115,15 @@ const App = () => {
                 component={BottomTabNavigator}
                 options={{headerShown: false}}
               />
+              <Stack.Screen
+                name="RecommendedProduct"
+                component={RecommendedProduct}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </GestureHandlerRootView>
       </ThemeProvider>
+    
     </UserProvider>
   );
 };

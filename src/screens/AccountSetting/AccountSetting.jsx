@@ -164,7 +164,7 @@ const AccountSetting = ({navigation}) => {
           onPress={() => navigation.navigate('Setting')}>
           <Ionicons name="arrow-back" size={24} color="#1A237E" />
         </TouchableOpacity>
-        <Text style={themeStyle.title}>Account Setting</Text>
+        <Text style={themeStyle.title}>Account Details</Text>
       </View>
 
       <View style={themeStyle.frame}>

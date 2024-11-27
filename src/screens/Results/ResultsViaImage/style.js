@@ -21,19 +21,18 @@ const styles = theme =>
       borderRadius: 8,
     },
     icon: {
-      width: 16,
-      height: 16,
-      marginLeft: 10,
+      width: 26,
+      height: 26,
+      marginLeft: 6, // Adjust to move the icon
       alignSelf: 'center',
-      justifyContent: 'center',
     },
-
     title: {
       color: theme.primary,
       fontWeight: 'bold',
+      marginTop:-40,
       width: 250,
       height: 60,
-      marginLeft: 80,
+      marginLeft: 70,
       fontSize: 25,
     },
     card: {
@@ -89,13 +88,13 @@ const styles = theme =>
       color: '#6b6b6b',
     },
 
-    icon: {
-      width: 16,
-      height: 16,
-      marginLeft: 15,
-      alignSelf: 'center',
-      justifyContent: 'center',
-    },
+    // icon: {
+    //   width: 16,
+    //   height: 16,
+    //   marginLeft: 15,
+    //   alignSelf: 'center',
+    //   justifyContent: 'center',
+    // },
     statusContainer: {
       flexDirection: 'row',
       width: 83,

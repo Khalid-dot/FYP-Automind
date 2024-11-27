@@ -53,7 +53,7 @@ const Setting = ({navigation}) => {
         <View style={themeStyle.iconContainer}>
           <Ionicons name="person-outline" size={24} color="#fff" />
         </View>
-        <Text style={themeStyle.optionText}>Account Settings</Text>
+        <Text style={themeStyle.optionText}>Profile Settings</Text>
         <Ionicons name="arrow-forward" size={20} color="#B4B4B4" />
       </TouchableOpacity>
 

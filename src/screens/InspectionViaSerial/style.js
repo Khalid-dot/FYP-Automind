@@ -21,18 +21,18 @@ const styles = theme =>
       borderRadius: 8,
     },
     icon: {
-      width: 16,
-      height: 16,
-      marginLeft: 15,
+      width: 26,
+      height: 26,
+      marginLeft: 6,
       alignSelf: 'center',
     },
     title: {
       color: theme.primary,
       fontWeight: 'bold',
-
+      marginTop:-40,
       width: 250,
       height: 60,
-      marginLeft: 40,
+      marginLeft: 70,
       fontSize: 25,
     },
     card: {
@@ -89,9 +89,9 @@ const styles = theme =>
 
     Text: {
       color: theme.primary,
-      marginTop: 50,
       marginLeft: 44,
       lineHeight: 40,
+      marginTop:20
     },
     inputContainer: {
       width: '85%',
@@ -104,7 +104,7 @@ const styles = theme =>
       padding: 10,
       borderRadius: 8,
       alignSelf: 'center',
-      marginTop: 20,
+      marginTop: 1,
     },
     input: {
       flex: 1,

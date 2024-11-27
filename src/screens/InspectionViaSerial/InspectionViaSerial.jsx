@@ -152,12 +152,18 @@ const InspectionViaSerial = ({ navigation }) => {
       {/* Back Button */}
       <TouchableOpacity
         style={themeStyle.backButton}
-        onPress={() => navigation.navigate('HomePage')}
+        onPress={() => navigation.goBack()}
       >
-        <Ionicons name="arrow-back" size={24} color="#091155" />
-        <Text style={themeStyle.title}>Inspect Via Serial No</Text>
+         <Ionicons
+          name="arrow-back"
+          size={24}
+          color="#091155"
+          style={themeStyle.icon}
+        />
+        
       </TouchableOpacity>
-
+      <Text style={themeStyle.title}>Inspect Via Serial No</Text>
+      
       {/* Serial Number Input with Camera Button */}
       <Text style={themeStyle.Text}>Serial No</Text>
       <View style={themeStyle.inputContainer}>

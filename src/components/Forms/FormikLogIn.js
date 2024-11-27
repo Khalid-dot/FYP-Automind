@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Text,
   View,
@@ -8,13 +8,15 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
+
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {google, bi_apple} from '../../assets';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import colors from '../../constants/colors';
-
+import { UserContext } from '../../screens/UserContext/UserContext';
 import fonts from '../../constants/fonts';
 import {useTheme} from '../../screens/ThemeContext/ThemeContext';
 
@@ -32,8 +34,10 @@ const FormikLogIn = ({navigation}) => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const {theme, toggleTheme, isDarkMode} = useTheme();
+  const {setUserData} = useContext(UserContext); // Access setUserData from context
 
   const themeStyle = styles(theme);
+
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
     toggleTheme();
@@ -41,14 +45,26 @@ const FormikLogIn = ({navigation}) => {
 
   const onSubmitForm = async (email, password) => {
     try {
-      console.log('Signing in with Email and Password:', email);
-      const userCredential = await auth().signInWithEmailAndPassword(
-        email,
-        password,
-      );
+      const userCredential = await auth().signInWithEmailAndPassword(email, password);
+      const userId = userCredential.user.uid; // Get the user's ID from Firebase Auth
 
       if (userCredential?.user?.emailVerified) {
-        navigation.replace('BottomTabNavigator');
+        // Fetch user data from Firestore
+        const userDoc = await firestore().collection('users').doc(userId).get();
+        if (userDoc.exists) {
+          setUserData(userDoc.data()); // Update UserContext with Firestore data
+        } else {
+          // User doesn't have a profile yet, set default data
+          setUserData({
+            name: '',
+            profileImage: null,
+            gender: '',
+            phoneNumber: '',
+            nationality: '',
+          });
+        }
+
+        navigation.replace('BottomTabNavigator'); // Navigate to HomePage
       } else {
         Alert.alert(
           'Please verify your email address before signing in. A verification email has been sent.',
@@ -57,7 +73,7 @@ const FormikLogIn = ({navigation}) => {
         auth().signOut();
       }
     } catch (err) {
-      console.log('Error signing in:', err.message);
+      console.error('Error signing in:', err.message);
       setMessage(err.message);
     }
   };

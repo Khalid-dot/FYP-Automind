@@ -1,8 +1,8 @@
-import React, {createContext, useState} from 'react';
+import React, { createContext, useState } from 'react';
 
-export const UserContext = createContext();
+export const UserContext = createContext(); // Declare and export UserContext only once
 
-export const UserProvider = ({children}) => {
+export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({
     profileImage: null,
     fullName: '',
@@ -12,7 +12,7 @@ export const UserProvider = ({children}) => {
   });
 
   return (
-    <UserContext.Provider value={{userData, setUserData}}>
+    <UserContext.Provider value={{ userData, setUserData }}>
       {children}
     </UserContext.Provider>
   );

@@ -20,18 +20,19 @@ const styles = theme =>
       borderRadius: 8,
     },
     icon: {
-      width: 16,
-      height: 16,
-      marginLeft: 15,
+      width: 26,
+      height: 26,
+      marginLeft: 6,
       alignSelf: 'center',
       justifyContent: 'center',
     },
     title: {
       color: theme.primary,
       fontWeight: 'bold',
+      marginTop:-40,
       width: 250,
       height: 60,
-      marginLeft: 20,
+      marginLeft: 70,
       fontSize: 25,
     },
     subtitle: {
