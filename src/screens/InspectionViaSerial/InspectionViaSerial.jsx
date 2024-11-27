@@ -47,7 +47,7 @@ const InspectionViaSerial = ({ navigation }) => {
       });
 
       const response = await axios.post(
-        'http://192.168.0.103:3000/extract_serial',
+        'https://automind-djg5d0hwc9bmcdc2.centralindia-01.azurewebsites.net/extract_serial',
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
@@ -88,7 +88,7 @@ const InspectionViaSerial = ({ navigation }) => {
       try {
         setLoading(true);
         const response = await axios.post(
-          'http://192.168.0.103:3000/extract_serial',
+          'https://automind-djg5d0hwc9bmcdc2.centralindia-01.azurewebsites.net/extract_serial',
           { serialNumber: currentSerialNumber },
           { headers: { 'Content-Type': 'application/json' } }
         );

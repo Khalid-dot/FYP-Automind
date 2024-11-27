@@ -121,7 +121,7 @@ const InspectionViaImage = ({navigation}) => {
     });
   
     try {
-      const response = await axios.post("http://192.168.0.103:3000/predict_multiple", formData, {
+      const response = await axios.post("https://automind-djg5d0hwc9bmcdc2.centralindia-01.azurewebsites.net/predict_multiple", formData, {
         headers: {'Content-Type': 'multipart/form-data'},
       });
   
