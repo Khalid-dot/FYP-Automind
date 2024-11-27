@@ -125,7 +125,7 @@ const InspectionViaImage = ({navigation}) => {
         headers: {'Content-Type': 'multipart/form-data'},
       });
   
-      // Check for non-tyre detection in the response
+      // Check for non-tyre detection in the response.
       if (response.data.details && response.data.details.some(detail => detail.error === "Not a tyre image")) {
         setNonTyreDetected(true);
         Alert.alert('Non-Tyre Image Detected', 'One or more uploaded images are not tyres.');

@@ -83,7 +83,7 @@ const InspectionViaSerial = ({ navigation }) => {
       return;
     }
   
-    // If only serial number is provided
+    // If only serial number is provided.
     if (currentSerialNumber) {
       try {
         setLoading(true);
