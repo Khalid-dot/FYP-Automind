@@ -52,7 +52,7 @@ const FormikLogIn = ({navigation}) => {
         // Fetch user data from Firestore
         const userDoc = await firestore().collection('users').doc(userId).get();
         if (userDoc.exists) {
-          setUserData(userDoc.data()); // Update UserContext with Firestore data
+          setUserData(userDoc.data()); // Update UserContext with Firestore data, including profileImage
         } else {
           // User doesn't have a profile yet, set default data
           setUserData({

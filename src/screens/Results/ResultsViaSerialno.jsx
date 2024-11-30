@@ -1,14 +1,13 @@
-
 import React from 'react';
-import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './styles';
-import {useTheme} from '../ThemeContext/ThemeContext';
+import { useTheme } from '../ThemeContext/ThemeContext';
 
-const ResultsViaSerialno = ({route, navigation}) => {
-  const {tireDetails = {}} = route.params || {};
-  const {theme} = useTheme();
+const ResultsViaSerialno = ({ route, navigation }) => {
+  const { tireDetails = {} } = route.params || {};
+  const { theme } = useTheme();
   const themeStyle = styles(theme);
 
   const renderDetailRow = (iconName, label, value) => (
@@ -29,6 +28,7 @@ const ResultsViaSerialno = ({route, navigation}) => {
     </View>
   );
 
+
   const generateSerialNumber = () => {
     const {
       Width,
@@ -38,6 +38,7 @@ const ResultsViaSerialno = ({route, navigation}) => {
       'Speed Rating': speedRating,
     } = tireDetails;
   
+    // Parse values and clean up data (remove extra text like ' inches' or '%')
     const width = Width?.split(' ')[0] || null;
     const aspect = aspectRatio?.replace('%', '') || null;
     const rim = rimSize?.replace(' inches', '') || null;
@@ -45,31 +46,40 @@ const ResultsViaSerialno = ({route, navigation}) => {
     const speed = speedRating?.split(' ')[0] || null;
   
     let serialNumberParts = [];
-    if (width && aspect) {
-      serialNumberParts.push(`${width}/${aspect}`); // Combine width and aspect ratio with '/'
-    } else if (width) {
-      serialNumberParts.push(width); // Add only width if aspect ratio is missing
-    }
-    if (rim) {
-      serialNumberParts.push(`R${rim}`); // Add the rim size with "R" prefix
-    }
-    if (load || speed) {
-      serialNumberParts.push(`${load || ''}${speed || ''}`.trim()); // Combine load index and speed rating
+  
+    if (Width && Width !== "Not detected") {
+      if (aspect && aspect !== "Not detected") {
+        // Combine width, aspect ratio, and rim size (if rim is valid) in the same statement
+        serialNumberParts.push(`${width}/${aspect}${rim && rim !== "Not detected" ? ` R${rim}` : ""}`);
+      } else {
+        serialNumberParts.push(`${width}${rim && rim !== "Not detected" ? ` R${rim}` : ""}`); // Only width if aspect is missing
+      }
     }
   
-    return serialNumberParts.length === 0
-      ? 'Not detected'
-      : serialNumberParts.join(' ');
+    // Handle Load and Speed (if valid)
+    if (loadIndex && loadIndex !== "Not detected") {
+      if (speedRating && speedRating !== "Not detected") {
+        serialNumberParts.push(`${load}${speed}`); // Combine load and speed if both are valid
+      } else {
+        serialNumberParts.push(`${load}`); // Only add Load if Speed is "Not detected"
+      }
+    }
+  
+    // Return the serial number string; if no parts are found, return an empty string
+    return serialNumberParts.length === 0 ? '' : serialNumberParts.join(' ');
   };
   
 
   const serialNumber = generateSerialNumber();
 
+  const otherMarkings = tireDetails['Other Markings'] || [];
+  const hasTubeless = otherMarkings.some(marking => marking.toUpperCase().includes("TUBELESS"));
+
+
   return (
     <View style={themeStyle.container}>
       <View style={themeStyle.backButton}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons
             name="arrow-back"
             size={24}
@@ -82,29 +92,19 @@ const ResultsViaSerialno = ({route, navigation}) => {
       </View>
 
       <View style={themeStyle.card}>
+        {/* Serial Number */}
         <Text style={themeStyle.serialNumber}>
           <MaterialCommunityIcons name="tire" size={16} color="#6b6b6b" />
-          {'  '}Serial Number: {serialNumber}
+          <Text style={themeStyle.SerialTitle}> {'  '}Serial Number:</Text> {serialNumber || 'Not detected'}
         </Text>
 
+        {/* Render the individual detail rows (Width, Aspect Ratio, etc.) */}
         {renderDetailRow('tire', 'Width', tireDetails.Width)}
         {renderDetailRow('ruler', 'Aspect Ratio', tireDetails['Aspect Ratio'])}
         {renderDetailRow('circle-outline', 'Rim Size', tireDetails['Rim Size'])}
-        {renderDetailRow(
-          'weight-kilogram',
-          'Load Index',
-          tireDetails['Load Index'],
-        )}
-        {renderDetailRow(
-          'speedometer',
-          'Speed Rating',
-          tireDetails['Speed Rating'],
-        )}
-        {renderDetailRow(
-          'alert-circle-outline',
-          'Other Markings',
-          tireDetails['Other Markings']?.join(', ') || 'None',
-        )}
+        {renderDetailRow('weight-kilogram', 'Load Index', tireDetails['Load Index'])}
+        {renderDetailRow('speedometer', 'Speed Rating', tireDetails['Speed Rating'])}
+        {hasTubeless && renderDetailRow('alert-circle-outline', 'Other Markings', 'TUBLESS')}
       </View>
     </View>
   );

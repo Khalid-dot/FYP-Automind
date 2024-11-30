@@ -176,6 +176,37 @@ const styles = theme =>
       fontSize: 18,
       color: colors.error,
     },
+    uploadSuccessText: {
+      textAlign:'center',
+      color:'green'
+    },
+
+    mainHeadings: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      marginBottom: 5,
+      marginLeft:15,
+      marginTop:30,
+      color:'#00264d'
+    },
+    instructionsText: {
+      fontSize: 14,
+      marginLeft:10,
+      marginRight:10,
+      lineHeight: 19,
+      color:'#8d97a5',
+      marginBottom: 8,
+    },
+    codeText: {
+      fontFamily: 'Courier New',  // Or any monospaced font
+      backgroundColor: '#f4fbfb',
+      padding: 2,
+      fontWeight: 'bold',
+      color:'#657081',
+      borderRadius: 4,
+    },
+    
+
   });
 
 export default styles;

@@ -39,13 +39,13 @@ const styles = theme =>
       textAlign: 'center',
       fontSize: 24,
       color: theme.primary,
-      marginTop: 20,
+      marginTop: 15,
       fontWeight: '700',
     },
     gridContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      marginTop: 30,
+      marginTop: 20,
       justifyContent: 'center',
     },
     gridButton: {
@@ -135,6 +135,22 @@ const styles = theme =>
     modalCancelText: {
       fontSize: 18,
       color: 'red',
+    },
+    mainHeading: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      marginBottom: 5,
+      marginLeft:10,
+      marginTop:25,
+      color:'#00264d'
+    },
+    instructionsText: {
+      fontSize: 14,
+      marginLeft:10,
+      lineHeight: 19,
+      color:'#8d97a5',
+      marginRight:10,
+      marginBottom: 8,
     },
   });
 

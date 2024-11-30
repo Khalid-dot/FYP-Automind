@@ -1,5 +1,6 @@
 const LOGO_IMAGE = require('./images/logo.png');
 const Automind = require('./images/Automind.png');
+const AutomindD = require('./images/AutomindD.png');
 const google = require('./images/google.png');
 const bi_apple = require('./images/bi_apple.png');
 const tick = require('./images/tick.png');
@@ -11,6 +12,7 @@ const serial_image = require('../assets/images/serial_image.png');
 export {
   LOGO_IMAGE,
   Automind,
+  AutomindD,
   google,
   bi_apple,
   tick,

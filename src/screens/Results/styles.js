@@ -53,6 +53,12 @@ const styles = theme =>
     serialNumber: {
       fontSize: 16,
       fontWeight: 'bold',
+      color: '#666600',
+      marginBottom: 16,
+    },
+    SerialTitle: {
+      fontSize: 16,
+      fontWeight: 'bold',
       color: '#2a2a2a',
       marginBottom: 16,
     },
@@ -88,6 +94,7 @@ const styles = theme =>
     outputText: {
       fontSize: 14,
       color: '#091155',
+      alignContent:'center',
       fontWeight: 'bold',
     },
     icon: {

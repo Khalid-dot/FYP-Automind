@@ -26,10 +26,10 @@ const styles = theme =>
       marginRight: 10,
     },
     title: {
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: '600',
       color: theme.primary,
-      marginLeft: 50,
+      marginLeft: 30,
     },
     notificationRow: {
       width: 343,
@@ -58,7 +58,7 @@ const styles = theme =>
     notificationText: {
       fontSize: 14,
       fontWeight: '500',
-      color: colors.text,
+      color: "#666666",
       width: 128,
       height: 20,
     },

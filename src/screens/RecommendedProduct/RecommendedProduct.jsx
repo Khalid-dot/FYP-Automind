@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {
-  SafeAreaView,
-  FlatList,
-  Image,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
+import { Dimensions, SafeAreaView, FlatList, Image, Text, View, TouchableOpacity, Alert } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { useTheme } from '../ThemeContext/ThemeContext';
 import colors from '../../constants/colors';
 import { useNavigation } from '@react-navigation/native';
+
+// Get screen dimensions
+const { width, height } = Dimensions.get('window'); // Get width and height of the screen
 
 const RecommendedProduct = ({ route }) => {
   const { prediction } = route.params || {}; // Receive prediction parameter from ResultsViaImage
@@ -59,22 +54,28 @@ const RecommendedProduct = ({ route }) => {
   const renderProductItem = ({ item }) => (
     <View
       style={{
-        marginBottom: 20,
+        marginBottom: 15,  // Reduced margin bottom to make items smaller
         alignItems: 'center',
-        padding: 10,
+        padding: 8,  // Reduced padding for smaller elements
         backgroundColor: theme.cardBackground || '#f8f9fa',
-        borderRadius: 10,
+        borderRadius: 8,  // Slightly smaller border radius
+        width: width * 0.85, // Reduced width to 85% of the screen width
+        alignSelf: 'center',
       }}>
       {item.Image ? (
         <Image
           source={{ uri: item.Image }}
-          style={{ width: 150, height: 150, borderRadius: 10 }}
+          style={{
+            width: width * 0.3,  // Reduced image size to 30% of screen width
+            height: width * 0.3,  // Keep the same aspect ratio as width
+            borderRadius: 8,
+          }}
         />
       ) : (
         <View
           style={{
-            width: 150,
-            height: 150,
+            width: width * 0.3,
+            height: width * 0.3,
             backgroundColor: '#ccc',
             justifyContent: 'center',
             alignItems: 'center',
@@ -82,10 +83,10 @@ const RecommendedProduct = ({ route }) => {
           <Text>No Image</Text>
         </View>
       )}
-      <Text style={{ fontSize: 16, color: theme.text, marginTop: 10 }}>
+      <Text style={{ fontSize: 14, color: theme.text, marginTop: 8 }}>
         {item.Name}
       </Text>
-      <Text style={{ fontSize: 14, color: theme.textSecondary, marginTop: 5 }}>
+      <Text style={{ fontSize: 12.5, color: theme.textSecondary, marginTop: 4 }}>
         Rs.{item.Price}
       </Text>
     </View>
@@ -96,16 +97,21 @@ const RecommendedProduct = ({ route }) => {
       style={{
         flex: 1,
         backgroundColor: theme.background,
-        padding: 20,
+        padding: width * 0.04,  // Reduced padding to 4% of screen width
       }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold', color: theme.primary }}>
+      <Text
+        style={{
+          fontSize: 24,  // Reduced title font size to 20
+          fontWeight: 'bold',
+          color: theme.primary,
+        }}>
         Recommended Products
       </Text>
       <Text
         style={{
-          fontSize: 16,
+          fontSize: 16,  // Reduced subtitle font size to 14
           color: theme.secondaryText,
-          marginVertical: 10,
+          marginVertical: height * 0.015,  // Reduced margin
         }}>
         Products based on your tyre condition:
       </Text>
@@ -116,26 +122,26 @@ const RecommendedProduct = ({ route }) => {
           data={products}
           renderItem={renderProductItem}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ paddingBottom: 20 }}
+          contentContainerStyle={{ paddingBottom: 15 }}  // Reduced padding bottom
         />
       )}
-        <TouchableOpacity
+      <TouchableOpacity
+        style={{
+          marginTop: height * 0.02,  // Reduced top margin
+          padding: width * 0.04,  // Reduced padding to 4% of screen width
+          backgroundColor: theme.buttonBackground || colors.buttonBackground,
+          borderRadius: 4,  // Slightly smaller button radius
+          alignItems: 'center',
+        }}
+        onPress={() => navigation.goBack()}>
+        <Text
           style={{
-            marginTop: 20,
-            padding: 10,
-            backgroundColor: theme.buttonBackground || colors.buttonBackground, // Fallback
-            borderRadius: 5,
-            alignItems: 'center',
-          }}
-          onPress={() => navigation.goBack()}>
-          <Text
-            style={{
-              fontSize: 16,
-              color: theme.buttonText || colors.buttonText, // Fallback
-            }}>
-            Back
-          </Text>
-        </TouchableOpacity>
+            fontSize: 14,  // Reduced font size for button
+            color: theme.buttonText || colors.buttonText,
+          }}>
+          Back
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

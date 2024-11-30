@@ -99,7 +99,7 @@ const styles = theme =>
     picker: {
       flex: 1,
 
-      color: 'grey',
+      color: '#595959',
       marginLeft: 8,
     },
     clearIcon: {

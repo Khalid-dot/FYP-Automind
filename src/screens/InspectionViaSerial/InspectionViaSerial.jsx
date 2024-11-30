@@ -22,6 +22,7 @@ const InspectionViaSerial = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVisible, setAlertVisible] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(false); // To toggle instructions visibility
   const { theme } = useTheme();
   const themeStyle = styles(theme);
 
@@ -47,7 +48,7 @@ const InspectionViaSerial = ({ navigation }) => {
       });
 
       const response = await axios.post(
-        'https://automind-djg5d0hwc9bmcdc2.centralindia-01.azurewebsites.net/extract_serial',
+        'https://automindapp.azurewebsites.net/extract_serial',
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
@@ -72,27 +73,33 @@ const InspectionViaSerial = ({ navigation }) => {
 
   const checkSerialNumber = async () => {
     const currentSerialNumber = serialNumber.trim();
-  
-    // Log values for debugging
-    // console.log('Current Serial Number:', currentSerialNumber);
-    // console.log('Image URI:', imageUri);
-  
-    // Check if both the serial number and image are missing
+
+    // Regex for validating the serial number format (e.g., 255/55 R16 92W)
+    const serialNumberRegex = /^[0-9]{3}\/[0-9]{2} R[0-9]{2} [0-9]{2}[A-Z]$/;
+
+    // Check if the serial number matches the required format
     if (currentSerialNumber === '' && !imageUri) {
-      Alert.alert('Please enter a serial number or upload an image for inspection.');
+      Alert.alert('No Input Detected!',
+        'Please enter a serial number or upload an image for inspection.');
       return;
     }
-  
-    // If only serial number is provided..
+
+    if (!serialNumberRegex.test(currentSerialNumber)) {
+      Alert.alert('Invalid format!',
+        'Please enter the serial number in the format: "255/55 R16 92W"');
+      return;
+    }
+
+    // If only serial number is provided
     if (currentSerialNumber) {
       try {
         setLoading(true);
         const response = await axios.post(
-          'https://automind-djg5d0hwc9bmcdc2.centralindia-01.azurewebsites.net/extract_serial',
+          'https://automindapp.azurewebsites.net/extract_serial',
           { serialNumber: currentSerialNumber },
           { headers: { 'Content-Type': 'application/json' } }
         );
-  
+
         if (response.data && response.data.tire_details) {
           navigation.navigate('ResultsViaSerialno', {
             tireDetails: {
@@ -111,13 +118,10 @@ const InspectionViaSerial = ({ navigation }) => {
       }
       return;
     }
-  
+
     // If only an image is provided, send the image to the server
     sendImageToServer();
   };
-  
-  
-
 
   const pickImageFromCamera = () => {
     launchCamera({ mediaType: 'photo', quality: 1 }, (response) => {
@@ -154,16 +158,15 @@ const InspectionViaSerial = ({ navigation }) => {
         style={themeStyle.backButton}
         onPress={() => navigation.goBack()}
       >
-         <Ionicons
+        <Ionicons
           name="arrow-back"
           size={24}
           color="#091155"
           style={themeStyle.icon}
         />
-        
       </TouchableOpacity>
       <Text style={themeStyle.title}>Inspect Via Serial No</Text>
-      
+
       {/* Serial Number Input with Camera Button */}
       <Text style={themeStyle.Text}>Serial No</Text>
       <View style={themeStyle.inputContainer}>
@@ -188,8 +191,7 @@ const InspectionViaSerial = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Loading Indicator */}
-      {loading && <ActivityIndicator size="large" color="#0000ff" />}
+
 
       {/* Display Selected Image */}
       {imageUri && (
@@ -209,6 +211,34 @@ const InspectionViaSerial = ({ navigation }) => {
         <Text style={themeStyle.checkbuttonText}>Check Now</Text>
         <Ionicons name="arrow-forward" size={20} color="white" />
       </TouchableOpacity>
+
+      {/* Toggleable Inspection Instructions */}
+      <TouchableOpacity onPress={() => setShowInstructions(!showInstructions)}>
+      <Text style={themeStyle.mainHeadings}>
+          {showInstructions ? 'Hide Inspection Instructions ▲' : 'Show Inspection Instructions ▼'}
+        </Text>
+      </TouchableOpacity>
+
+      {showInstructions && (
+        <View style={themeStyle.instructionsContainer}>
+          <Text style={themeStyle.instructionsText}>
+            ‣ Enter the serial number in the format: 
+            <Text style={themeStyle.codeText}> 255/55 R16 92W</Text>.
+          </Text>
+          <Text style={themeStyle.instructionsText}>
+            ‣ Make sure the image you upload is clear and of high quality.
+          </Text>
+          <Text style={themeStyle.instructionsText}>
+            ‣ The serial number on the tire must be clearly visible in the image.
+          </Text>
+          <Text style={themeStyle.instructionsText}>
+            ‣ Upload a close-up photo of the tire, ensuring the serial number is in focus and easily readable.
+          </Text>
+        </View>
+      )}
+
+      {/* Loading Indicator */}
+      {loading && <ActivityIndicator size="large" color="#0000ff" />}
 
       {/* Image Selection Modal */}
       <Modal

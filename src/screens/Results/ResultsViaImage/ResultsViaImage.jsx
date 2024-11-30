@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, View, TouchableOpacity, Alert } from 'react-native'; // Add Alert here
+import { Text, View, TouchableOpacity, Alert } from 'react-native'; 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -9,7 +9,7 @@ import styles from './style';
 import { useTheme } from '../../ThemeContext/ThemeContext';
 
 const ResultsViaImage = ({ route, navigation }) => {
-  const { prediction } = route.params || {};
+  const { prediction } = route.params || {}; // Get prediction data from the route
   const { theme } = useTheme();
   const themeStyle = styles(theme);
 
@@ -48,7 +48,7 @@ const ResultsViaImage = ({ route, navigation }) => {
     if (prediction) {
       saveInspectionResult();
     }
-  }, [prediction]);
+  }, [prediction]); // Run when the prediction changes
 
   return (
     <View style={themeStyle.container}>

@@ -29,26 +29,30 @@ const History = () => {
   };
 
   useEffect(() => {
-    const fetchInspectionResults = async () => {
+    const fetchInspectionResults = () => {
       const user = auth().currentUser;
       if (user) {
-        const snapshot = await firestore()
+        // Listen for real-time updates
+        const unsubscribe = firestore()
           .collection('InspectionResults')
           .doc(user.uid)
           .collection('Results')
-          .get();
+          .onSnapshot(snapshot => {
+            const results = snapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data()
+            }));
+            setInspectionResults(results); // Update the state with new results
+          });
 
-        const results = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-
-        setInspectionResults(results);
+        // Cleanup the listener when the component unmounts
+        return () => unsubscribe();
       }
     };
 
+    // Fetch the results with a listener
     fetchInspectionResults();
-  }, []);
+  }, []); // Empty dependency array, so it runs only once when the component mounts
 
   return (
     <SafeAreaView style={themeStyle.container}>

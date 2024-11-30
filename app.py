@@ -3,7 +3,6 @@ import time
 import requests
 import re
 from flask import Flask, request, jsonify
-
 from flask_cors import CORS
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
@@ -28,7 +27,7 @@ model = load_model("./models/mobilenet_model_finetune.keras") #for predicting Ty
 model2 = load_model("./models/TI.keras") #for tyre vs nonTyres Pictures
 
 
-# Function to extract text from an image using Azure OCR.
+# Function to extract text from an image using Azure OCR
 def extract_text_from_image(image_path):
     read_url = endpoint + "vision/v3.1/read/analyze"
     headers = {
@@ -248,5 +247,4 @@ def handle_serial_extraction():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8000)), debug=True)
-
+    app.run(host="0.0.0.0", port=3000, debug=True)

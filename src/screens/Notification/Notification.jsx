@@ -42,7 +42,7 @@ const Notification = ({navigation}) => {
           onPress={() => handleNavigation('Setting')}
           accessible={true}
           accessibilityLabel="Go Back">
-          <Ionicons name="arrow-back" size={24} color={colors.text} />
+          <Ionicons name="arrow-back" size={24} color="#1A237E" />
         </TouchableOpacity>
         <Text style={themeStyle.title}>Notification</Text>
       </View>

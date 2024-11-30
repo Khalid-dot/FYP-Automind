@@ -1,16 +1,15 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 
 const styles = theme =>
   StyleSheet.create({
     container: {
       flex: 1,
-
       backgroundColor: theme.background,
     },
     topImage: {
-      width: 400,
-      height: 251,
+      width: '100%',
+      height: 200,
     },
     profile: {
       position: 'relative',
@@ -20,19 +19,14 @@ const styles = theme =>
       height: 40,
       borderRadius: 20,
     },
-    topImage: {
-      width: '100%',
-      height: 200,
-    },
     headerContainer: {
       position: 'absolute',
       top: 15,
       left: 7,
       flexDirection: 'row',
       alignItems: 'center',
-      // justifyContent: 'space-between', // Spread elements across the row
-      width: '100%', // Ensure it spans the entire screen width
-      paddingHorizontal: 10, // Add horizontal padding
+      width: '100%',
+      paddingHorizontal: 10,
     },
     profileicon: {
       width: 24,
@@ -41,11 +35,11 @@ const styles = theme =>
       marginLeft: 6,
     },
     userName: {
-      flex: 1, // Allow text to grow in width
+      flex: 1,
       fontSize: 16,
       fontWeight: '700',
       marginLeft: 5,
-      marginTop:8,
+      marginTop: 8,
       color: '#FFFF',
       textAlign: 'left',
     },
@@ -128,6 +122,26 @@ const styles = theme =>
       fontSize: 18,
       color: '#1A237E',
       fontWeight: '600',
+    },
+    notificationContainer: {
+      backgroundColor: 'white',
+      padding: 15,
+      // margin: 1,
+      borderRadius: 5,
+      borderWidth: 1,
+      borderColor: '#1a1a1a',
+      position: 'absolute',
+      top: 1, // Increased bottom value to push it above the button
+      left: 1,
+      right:1,
+      zIndex: 9999, // Ensure it's on top of other elements
+    },
+    notificationTitle: {
+      fontWeight: 'bold',
+      color: '#404040',
+    },
+    notificationMessage: {
+      color: 'grey',
     },
   });
 

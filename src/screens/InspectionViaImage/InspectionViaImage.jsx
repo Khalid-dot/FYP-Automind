@@ -20,6 +20,7 @@ const InspectionViaImage = ({navigation}) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const [nonTyreDetected, setNonTyreDetected] = useState(false);
+  const [showDetailedInstructions, setShowDetailedInstructions] = useState(false); // New state to toggle detailed instructions
   const {theme} = useTheme();
   const themeStyle = styles(theme);
 
@@ -121,11 +122,11 @@ const InspectionViaImage = ({navigation}) => {
     });
   
     try {
-      const response = await axios.post("https://automind-djg5d0hwc9bmcdc2.centralindia-01.azurewebsites.net/predict_multiple", formData, {
+      const response = await axios.post("https://automindapp.azurewebsites.net/predict_multiple", formData, {
         headers: {'Content-Type': 'multipart/form-data'},
       });
   
-      // Check for non-tyre detection in the response.
+      // Check for non-tyre detection in the response
       if (response.data.details && response.data.details.some(detail => detail.error === "Not a tyre image")) {
         setNonTyreDetected(true);
         Alert.alert('Non-Tyre Image Detected', 'One or more uploaded images are not tyres.');
@@ -143,9 +144,11 @@ const InspectionViaImage = ({navigation}) => {
       Alert.alert('Error', 'Failed to get prediction from server.');
     }
   };
-  
-  
-  
+
+  // Toggle Detailed Instructions
+  const toggleDetailedInstructions = () => {
+    setShowDetailedInstructions(!showDetailedInstructions);
+  };
 
   return (
     <View style={themeStyle.container}>
@@ -159,15 +162,14 @@ const InspectionViaImage = ({navigation}) => {
           color="#091155"
           style={themeStyle.icon}
         />
-        
       </TouchableOpacity>
 
-      <Text style={themeStyle.title}>Inspection Via Images</Text>
+      <Text style={themeStyle.title}>Inspect Via Images</Text>
   
       {/* Error message for non-tyre images */}
       {nonTyreDetected && (
         <View style={themeStyle.nonTyreCard}>
-          {/* <Text style={themeStyle.nonTy.reText}>One or more uploaded images are not tyres. Please upload only tyre images.</Text> */}
+          {/* <Text style={themeStyle.nonTyreText}>One or more uploaded images are not tyres. Please upload only tyre images.</Text> */}
         </View>
       )}
   
@@ -204,7 +206,23 @@ const InspectionViaImage = ({navigation}) => {
         <Text style={themeStyle.checkbuttonText}>Check Now</Text>
         <Ionicons name="arrow-forward" size={20} color="white" />
       </TouchableOpacity>
-  
+
+      {/* <Text style={themeStyle.mainHeading}>Inspection Instructions:</Text> */}
+      <TouchableOpacity onPress={toggleDetailedInstructions}>
+        <Text style={themeStyle.mainHeading}>
+          {showDetailedInstructions ? 'Hide Inspection Instructions ▲' : 'Show Inspection Instructions ▼'}
+        </Text>
+      </TouchableOpacity>
+
+      {/* Display Detailed Instructions if toggled */}
+      {showDetailedInstructions && (
+        <>
+          <Text style={themeStyle.instructionsText}>‣ Upload a clear, high-resolution close-up photo focusing on the tire’s treads and sidewalls.</Text>
+          <Text style={themeStyle.instructionsText}>‣ Ensure the image has no background clutter to highlight the tire’s condition.</Text>
+          <Text style={themeStyle.instructionsText}>‣ Take multiple pictures from different angles to capture tread depth and any visible damage.</Text>
+        </>
+      )}
+
       {/* Image Selection Modal */}
       <Modal
         isVisible={isModalVisible}
@@ -234,7 +252,6 @@ const InspectionViaImage = ({navigation}) => {
       </Modal>
     </View>
   );
-  
 };
 
 export default InspectionViaImage;

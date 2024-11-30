@@ -8,7 +8,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  background: '#5A608D',
+  background: 'black',
   primary: '#E6E7EE',
   link: '#091155',
   secondary: ' #000000',

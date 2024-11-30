@@ -21,12 +21,13 @@ import {ThemeProvider} from './src/screens/ThemeContext/ThemeContext';
 import notify from './src/screens/notify/notify';
 import ResultsViaSerialno from './src/screens/Results/ResultsViaSerialno';
 import ResultsViaImage from './src/screens/Results/ResultsViaImage/ResultsViaImage';
-
+import PopUps from './src/screens/PopUps/PopUps';
 import RecommendedProduct from './src/screens/RecommendedProduct/RecommendedProduct';
 import Product from './src/screens/Product/Product';
 import {UserProvider} from './src/screens/UserContext/UserContext';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import '@react-native-firebase/firestore';
+
 
 const Stack = createNativeStackNavigator();
 

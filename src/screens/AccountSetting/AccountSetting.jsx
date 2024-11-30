@@ -144,16 +144,39 @@ const AccountSetting = ({navigation}) => {
   };
 
   const countries = [
-    {label: 'Select Nationality', value: ''},
-    {label: 'Pakistani', value: 'Pakistan'},
-    {label: 'United States', value: 'United States'},
-    {label: 'Canada', value: 'Canada'},
-    {label: 'United Kingdom', value: 'United Kingdom'},
-    {label: 'Australia', value: 'Australia'},
-    {label: 'India', value: 'India'},
-    {label: 'Germany', value: 'Germany'},
-    {label: 'France', value: 'France'},
-    {label: 'Japan', value: 'Japan'},
+    {label: 'SELECT NATIONALITY', value: ''},
+    {label: 'Pakistan 🇵🇰', value: 'Pakistan'},
+    {label: 'United States 🇺🇸', value: 'United States'},
+    {label: 'Canada 🇨🇦', value: 'Canada'},
+    {label: 'United Kingdom 🇬🇧', value: 'United Kingdom'},
+    {label: 'Australia 🇦🇺', value: 'Australia'},
+    {label: 'India 🇮🇳', value: 'India'},
+    {label: 'Germany 🇩🇪', value: 'Germany'},
+    {label: 'France 🇫🇷', value: 'France'},
+    {label: 'Japan 🇯🇵', value: 'Japan'},
+    {label: 'Brazil 🇧🇷', value: 'Brazil'},
+    {label: 'Italy 🇮🇹', value: 'Italy'},
+    {label: 'Mexico 🇲🇽', value: 'Mexico'},
+    {label: 'South Africa 🇿🇦', value: 'South Africa'},
+    {label: 'Russia 🇷🇺', value: 'Russia'},
+    {label: 'China 🇨🇳', value: 'China'},
+    {label: 'Spain 🇪🇸', value: 'Spain'},
+    {label: 'Sweden 🇸🇪', value: 'Sweden'},
+    {label: 'Netherlands 🇳🇱', value: 'Netherlands'},
+    {label: 'Turkey 🇹🇷', value: 'Turkey'},
+    {label: 'Argentina 🇦🇷', value: 'Argentina'},
+    {label: 'Saudi Arabia 🇸🇦', value: 'Saudi Arabia'},
+    {label: 'Switzerland 🇨🇭', value: 'Switzerland'},
+    {label: 'Egypt 🇪🇬', value: 'Egypt'},
+    {label: 'Belgium 🇧🇪', value: 'Belgium'},
+    {label: 'South Korea 🇰🇷', value: 'South Korea'},
+    {label: 'Thailand 🇹🇭', value: 'Thailand'},
+    {label: 'Nigeria 🇳🇬', value: 'Nigeria'},
+    {label: 'Indonesia 🇮🇩', value: 'Indonesia'},
+    {label: 'Norway 🇳🇴', value: 'Norway'},
+    {label: 'Denmark 🇩🇰', value: 'Denmark'},
+    {label: 'Finland 🇫🇮', value: 'Finland'},
+    {label: 'New Zealand 🇳🇿', value: 'New Zealand'}
   ];
 
   return (
@@ -217,9 +240,9 @@ const AccountSetting = ({navigation}) => {
             onValueChange={itemValue => setGender(itemValue)}
             style={themeStyle.picker}>
             <Picker.Item label="Select Gender" value="" />
-            <Picker.Item label="Male" value="Male" />
-            <Picker.Item label="Female" value="Female" />
-            <Picker.Item label="Other" value="Other" />
+            <Picker.Item label="Male ♂" value="Male" />
+            <Picker.Item label="Female ♀" value="Female" />
+            <Picker.Item label="Other ⚧" value="Other" />
           </Picker>
         </View>
 
@@ -232,7 +255,10 @@ const AccountSetting = ({navigation}) => {
             style={themeStyle.inputIcon}
           />
           <TextInput
-            style={styles.input}
+                style={[
+                  styles.input, 
+                  { color: theme.text || '#595959' }  // Explicitly set text color here
+                ]}
             placeholder="Enter Phone Number"
             placeholderTextColor="grey"
             keyboardType="phone-pad"
