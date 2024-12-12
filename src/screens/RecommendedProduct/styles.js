@@ -40,6 +40,14 @@ const styles = (theme) =>
       marginTop: 10,
       textAlign: 'center',
     },
+    productName: {
+      fontSize: 12,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginVertical: 8,
+      lineHeight: 20,
+      color: '#000',
+    },
     itemPrice: {
       fontSize: 14,
       color: theme.text || colors.text,

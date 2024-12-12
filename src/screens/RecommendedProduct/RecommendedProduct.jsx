@@ -42,7 +42,6 @@ const RecommendedProduct = ({ route }) => {
       setProducts(productList);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching recommended products:', error);
       Alert.alert('Error', 'Failed to fetch recommended products.');
     }
   };
@@ -83,10 +82,9 @@ const RecommendedProduct = ({ route }) => {
           <Text>No Image</Text>
         </View>
       )}
-      <Text style={{ fontSize: 14, color: theme.text, marginTop: 8 }}>
-        {item.Name}
+      <Text style={{ fontSize: 14, color: '#000', marginTop: 8 }}>{item.Name}
       </Text>
-      <Text style={{ fontSize: 12.5, color: theme.textSecondary, marginTop: 4 }}>
+      <Text style={{ fontSize: 12.5, color: '#1A237E', marginTop: 4 }}>
         Rs.{item.Price}
       </Text>
     </View>
@@ -110,7 +108,7 @@ const RecommendedProduct = ({ route }) => {
       <Text
         style={{
           fontSize: 16,  // Reduced subtitle font size to 14
-          color: theme.secondaryText,
+          color: theme.primary,
           marginVertical: height * 0.015,  // Reduced margin
         }}>
         Products based on your tyre condition:

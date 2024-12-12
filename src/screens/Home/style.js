@@ -127,7 +127,7 @@ const styles = theme =>
       backgroundColor: 'white',
       padding: 15,
       // margin: 1,
-      borderRadius: 5,
+      borderRadius: 40,
       borderWidth: 1,
       borderColor: '#1a1a1a',
       position: 'absolute',

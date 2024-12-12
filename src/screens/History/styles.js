@@ -127,6 +127,19 @@ const styles = theme =>
       textAlign: 'center',
       color: colors.textPrimary,
     },
+
+    clearButton: {
+      borderRadius: 15,
+      alignItems: 'flex-end',
+      top: -2,
+      marginRight: 28,
+    },
+    clearButtonText: {
+      color: colors.error,
+      fontSize: 16,
+      fontWeight: '700',
+    },
+
   });
 
 export default styles;

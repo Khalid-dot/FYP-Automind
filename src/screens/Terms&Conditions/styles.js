@@ -32,7 +32,7 @@ const styles = theme =>
       fontSize: 20,
       fontWeight: '600',
       color: theme.primary,
-      marginLeft: 30,
+      marginLeft: 0,
     },
     containerWrapper: {
       width: 340,
@@ -46,22 +46,29 @@ const styles = theme =>
       fontWeight: '600',
       fontSize: 16,
       color: theme.primary,
-      textAlign: 'center',
+      // textAlign: 'center',
+      marginLeft:30,
     },
     heading: {
       fontWeight: '600',
       fontSize: 14,
       color: colors.title,
-      marginTop: 10,
+      marginTop: 15,
+      marginBottom:5,
+      marginLeft:30,
+
     },
     subtitle: {
       fontWeight: '400',
       fontSize: 11,
       color: theme.primary,
+      marginLeft:30,
+      marginRight:30,
     },
     bulletItem: {
       flexDirection: 'row',
       alignItems: 'flex-start',
+      marginLeft:30,
     },
     bullet: {
       fontSize: 20,

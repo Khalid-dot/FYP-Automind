@@ -23,7 +23,7 @@ const WeatherNotifications = ({navigation}) => {
           'https://api.openweathermap.org/data/2.5/forecast',
           {
             params: {
-              q: 'London',
+              q: 'Lahore',
               units: 'metric',
               appid: '4b07c085d686394f81fdfe1effa1a1c5',
             },
@@ -31,7 +31,6 @@ const WeatherNotifications = ({navigation}) => {
         );
         setWeatherData(response.data.list.slice(0, 7));
       } catch (error) {
-        console.error('Error fetching weather data:', error);
       }
     };
 

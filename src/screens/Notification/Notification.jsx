@@ -1,36 +1,47 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Switch, Alert} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Switch, TouchableOpacity, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useTheme} from '../ThemeContext/ThemeContext';
+import { useTheme } from '../ThemeContext/ThemeContext';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import styles from './styles';
-import {colors} from '../../constants';
-const Notification = ({navigation}) => {
+import { colors } from '../../constants';
+
+const Notification = ({ navigation }) => {
   const [notifications, setNotifications] = useState({
     system: false,
     other: true,
   });
-  const [isEnabled, setIsEnabled] = useState(false);
-  const {theme, toggleTheme, isDarkMode} = useTheme();
+  const { theme, toggleTheme, isDarkMode } = useTheme();
 
   const themeStyle = styles(theme);
-  const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
-    toggleTheme();
+
+  // Load notification preference from AsyncStorage
+  useEffect(() => {
+    const loadNotificationSettings = async () => {
+      const savedNotifications = await AsyncStorage.getItem('notifications');
+      if (savedNotifications) {
+        setNotifications(JSON.parse(savedNotifications));
+      }
+    };
+    loadNotificationSettings();
+  }, []);
+
+  // Save notification preference to AsyncStorage and update state immediately
+  const handleToggle = async (type) => {
+    const newState = { ...notifications, [type]: !notifications[type] };
+
+    // Update the state immediately
+    setNotifications(newState);
+
+    // Persist state in AsyncStorage
+    await AsyncStorage.setItem('notifications', JSON.stringify(newState));
   };
 
-  const handleToggle = type => {
-    setNotifications(prev => ({...prev, [type]: !prev[type]}));
-  };
-
-  const handleNavigation = screen => {
+  const handleNavigation = (screen) => {
     try {
       navigation.navigate(screen);
     } catch (error) {
-      Alert.alert(
-        'Navigation Error',
-        'Unable to navigate to the selected screen.',
-      );
-      console.error('Navigation Error:', error);
+      Alert.alert('Navigation Error', 'Unable to navigate to the selected screen.');
     }
   };
 
@@ -53,7 +64,7 @@ const Notification = ({navigation}) => {
         </View>
         <Text style={themeStyle.notificationText}>System Notification</Text>
         <Switch
-          trackColor={{false: colors.border, true: colors.primary}}
+          trackColor={{ false: colors.border, true: colors.primary }}
           thumbColor={notifications.system ? '#ffffff' : '#f4f3f4'}
           onValueChange={() => handleToggle('system')}
           value={notifications.system}

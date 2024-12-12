@@ -26,6 +26,13 @@ const styles = theme =>
       marginLeft: 6, // Adjust to move the icon
       alignSelf: 'center',
     },
+    tirepictureImage: {
+      width: '100%',
+      height: '100%',
+      borderRadius: 8,
+      resizeMode: 'cover', // To ensure the image fits within the box
+    },
+    
     title: {
       color: theme.primary,
       fontWeight: 'bold',

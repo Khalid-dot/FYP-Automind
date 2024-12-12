@@ -69,8 +69,7 @@ const AccountSetting = ({navigation}) => {
           Alert.alert('Error', 'User not authenticated');
         }
       } catch (error) {
-        console.error('Error fetching user data: ', error);
-        // Alert.alert('Error', 'Failed to fetch user data');
+        
       }
     };
 
@@ -102,7 +101,8 @@ const AccountSetting = ({navigation}) => {
         ...updatedData,
       }));
     } catch (error) {
-      console.error('Error updating user: ', error);
+      
+  
       Alert.alert('Error', 'Failed to update user data');
     }
   };
@@ -122,7 +122,7 @@ const AccountSetting = ({navigation}) => {
         toggleModal();
       })
       .catch(error => {
-        console.log('Error opening picker', error);
+        
         Alert.alert('Error', 'Could not open image picker.');
       });
   };
@@ -138,7 +138,7 @@ const AccountSetting = ({navigation}) => {
         toggleModal();
       })
       .catch(error => {
-        console.log('Error opening camera', error);
+        
         Alert.alert('Error', 'Could not open camera.');
       });
   };

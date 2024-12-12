@@ -75,6 +75,14 @@ const styles = theme =>
     switch: {
       transform: [{scaleX: 1.1}, {scaleY: 1.1}],
     },
+    deleteContainer: {
+      borderRadius: 5,
+    },
+
+    deleteText: {
+      color: 'black',
+      fontWeight: 'bold',
+    },
   });
 
 export default styles;

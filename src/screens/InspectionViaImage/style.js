@@ -29,7 +29,7 @@ const styles = theme =>
     title: {
       color: theme.primary,
       fontWeight: 'bold',
-      marginTop:-40,
+      marginTop: -40,
       width: 250,
       height: 60,
       marginLeft: 70,
@@ -48,6 +48,12 @@ const styles = theme =>
       marginTop: 20,
       justifyContent: 'center',
     },
+    imageCont: {
+      height: 140,
+      width: 140,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     gridButton: {
       width: 140,
       height: 140,
@@ -59,13 +65,11 @@ const styles = theme =>
       position: 'relative',
     },
     gridImage: {
-      gridImage: {
-        width: '100',
-        height: '100',
-        borderRadius: 8,
-        resizeMode: 'cover',
-        backgroundColor: '#E0E0E0',
-      },
+      width: '100%',
+      height: '100%',
+      borderRadius: 8,
+      resizeMode: 'cover',
+      backgroundColor: '#E0E0E0',
     },
     buttonText: {
       fontSize: 30,
@@ -140,16 +144,16 @@ const styles = theme =>
       fontSize: 16,
       fontWeight: 'bold',
       marginBottom: 5,
-      marginLeft:10,
-      marginTop:25,
-      color:'#00264d'
+      marginLeft: 10,
+      marginTop: 25,
+      color: '#00264d',
     },
     instructionsText: {
       fontSize: 14,
-      marginLeft:10,
+      marginLeft: 10,
       lineHeight: 19,
-      color:'#8d97a5',
-      marginRight:10,
+      color: '#8d97a5',
+      marginRight: 10,
       marginBottom: 8,
     },
   });

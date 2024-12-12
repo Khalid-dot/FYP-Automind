@@ -104,7 +104,7 @@ const ResultsViaSerialno = ({ route, navigation }) => {
         {renderDetailRow('circle-outline', 'Rim Size', tireDetails['Rim Size'])}
         {renderDetailRow('weight-kilogram', 'Load Index', tireDetails['Load Index'])}
         {renderDetailRow('speedometer', 'Speed Rating', tireDetails['Speed Rating'])}
-        {hasTubeless && renderDetailRow('alert-circle-outline', 'Other Markings', 'TUBLESS')}
+        {hasTubeless && renderDetailRow('alert-circle-outline', 'Other Markings', 'TUBELESS')}
       </View>
     </View>
   );

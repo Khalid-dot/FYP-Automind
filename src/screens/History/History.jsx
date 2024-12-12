@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, SafeAreaView, View, ScrollView } from 'react-native';
+import { Text, SafeAreaView, View, ScrollView,TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -54,12 +54,45 @@ const History = () => {
     fetchInspectionResults();
   }, []); // Empty dependency array, so it runs only once when the component mounts
 
+  const clearHistory = async () => {
+    const user = auth().currentUser;
+    if (user) {
+      try {
+        // Delete all inspection results for the current user
+        const resultsSnapshot = await firestore()
+          .collection('InspectionResults')
+          .doc(user.uid)
+          .collection('Results')
+          .get();
+
+        const batch = firestore().batch();
+        resultsSnapshot.docs.forEach(doc => {
+          batch.delete(doc.ref);
+        });
+
+        // Commit the batch operation to delete all documents
+        await batch.commit();
+        setInspectionResults([]); // Clear the state as well
+      } catch (error) {
+      }
+    }
+  };
+
+
   return (
     <SafeAreaView style={themeStyle.container}>
       <Text style={themeStyle.title}>History</Text>
       <Text style={themeStyle.subtitle}>
         Here is the list of inspections that you've made in the past.
+
       </Text>
+
+      <TouchableOpacity
+        style={themeStyle.clearButton}
+        onPress={clearHistory}>
+        <Text style={themeStyle.clearButtonText}>Clear Record</Text>
+      </TouchableOpacity>
+
       <ScrollView>
         {inspectionResults.map(result => (
           <View key={result.id} style={themeStyle.card}>

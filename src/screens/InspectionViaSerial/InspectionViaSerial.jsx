@@ -64,7 +64,6 @@ const InspectionViaSerial = ({ navigation }) => {
         showAlert('Could not detect the tire details from the image.');
       }
     } catch (error) {
-      console.error('Error sending image:', error);
       showAlert('Failed to process the image. Please try again.');
     } finally {
       setLoading(false);
@@ -77,21 +76,15 @@ const InspectionViaSerial = ({ navigation }) => {
     // Regex for validating the serial number format (e.g., 255/55 R16 92W)
     const serialNumberRegex = /^[0-9]{3}\/[0-9]{2} R[0-9]{2} [0-9]{2}[A-Z]$/;
 
-    // Check if the serial number matches the required format
-    if (currentSerialNumber === '' && !imageUri) {
-      Alert.alert('No Input Detected!',
-        'Please enter a serial number or upload an image for inspection.');
-      return;
-    }
+    // Check if the serial number is entered manually
+    if (currentSerialNumber !== '' && !imageUri) {
+      if (!serialNumberRegex.test(currentSerialNumber)) {
+        Alert.alert('Invalid format!',
+          'Please enter the serial number in the format: "255/55 R16 92W"');
+        return;
+      }
 
-    if (!serialNumberRegex.test(currentSerialNumber)) {
-      Alert.alert('Invalid format!',
-        'Please enter the serial number in the format: "255/55 R16 92W"');
-      return;
-    }
-
-    // If only serial number is provided
-    if (currentSerialNumber) {
+      // If the serial number is valid, send it to the server
       try {
         setLoading(true);
         const response = await axios.post(
@@ -111,7 +104,6 @@ const InspectionViaSerial = ({ navigation }) => {
           showAlert('Could not process the serial number.');
         }
       } catch (error) {
-        console.error('Error processing serial number:', error);
         showAlert('Failed to process the serial number. Please try again.');
       } finally {
         setLoading(false);
@@ -120,7 +112,12 @@ const InspectionViaSerial = ({ navigation }) => {
     }
 
     // If only an image is provided, send the image to the server
-    sendImageToServer();
+    if (imageUri) {
+      sendImageToServer();
+    } else {
+      Alert.alert('No Input Detected!',
+        'Please enter a serial number or upload an image for inspection.');
+    }
   };
 
   const pickImageFromCamera = () => {
@@ -191,8 +188,6 @@ const InspectionViaSerial = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-
-
       {/* Display Selected Image */}
       {imageUri && (
         <View style={themeStyle.imageContainer}>
@@ -214,7 +209,7 @@ const InspectionViaSerial = ({ navigation }) => {
 
       {/* Toggleable Inspection Instructions */}
       <TouchableOpacity onPress={() => setShowInstructions(!showInstructions)}>
-      <Text style={themeStyle.mainHeadings}>
+        <Text style={themeStyle.mainHeadings}>
           {showInstructions ? 'Hide Inspection Instructions ▲' : 'Show Inspection Instructions ▼'}
         </Text>
       </TouchableOpacity>

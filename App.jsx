@@ -29,6 +29,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import '@react-native-firebase/firestore';
 
 
+
 const Stack = createNativeStackNavigator();
 
 const firebaseConfig = {

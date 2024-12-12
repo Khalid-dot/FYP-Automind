@@ -20,7 +20,8 @@ const InspectionViaImage = ({navigation}) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const [nonTyreDetected, setNonTyreDetected] = useState(false);
-  const [showDetailedInstructions, setShowDetailedInstructions] = useState(false); // New state to toggle detailed instructions
+  const [showDetailedInstructions, setShowDetailedInstructions] =
+    useState(false); // New state to toggle detailed instructions
   const {theme} = useTheme();
   const themeStyle = styles(theme);
 
@@ -69,7 +70,6 @@ const InspectionViaImage = ({navigation}) => {
         toggleModal();
       })
       .catch(error => {
-        console.log('Error opening camera', error);
         Alert.alert('Error', 'Could not open camera.');
       });
   };
@@ -81,13 +81,13 @@ const InspectionViaImage = ({navigation}) => {
       cropping: true,
     })
       .then(selectedImage => {
+
         const updatedImages = [...images];
         updatedImages[index] = {uri: selectedImage.path};
         setImages(updatedImages);
         toggleModal();
       })
       .catch(error => {
-        console.error('Error opening picker', error);
         Alert.alert('Error', 'Could not open image picker.');
       });
   };
@@ -106,7 +106,10 @@ const InspectionViaImage = ({navigation}) => {
   const sendImageForPrediction = async () => {
     const hasImage = images.some(image => image !== null);
     if (!hasImage) {
-      Alert.alert('Upload Required', 'Please add at least one picture before proceeding.');
+      Alert.alert(
+        'Upload Required',
+        'Please add at least one picture before proceeding.',
+      );
       return;
     }
   
@@ -122,33 +125,37 @@ const InspectionViaImage = ({navigation}) => {
     });
   
     try {
-      const response = await axios.post("https://automindapp.azurewebsites.net/predict_multiple", formData, {
-        headers: {'Content-Type': 'multipart/form-data'},
-      });
+      const response = await axios.post(
+        'https://automindapp.azurewebsites.net/predict_multiple',
+        formData,
+        {
+          headers: {'Content-Type': 'multipart/form-data'},
+        },
+      );
   
-      // Check for non-tyre detection in the response
-      if (response.data.details && response.data.details.some(detail => detail.error === "Not a tyre image")) {
-        setNonTyreDetected(true);
-        Alert.alert('Non-Tyre Image Detected', 'One or more uploaded images are not tyres.');
+      if (response.data.final_label) {
+        navigation.navigate('ResultsViaImage', {
+          prediction: response.data.final_label,
+          images: images, // Pass the images here
+        });
       } else {
-        setNonTyreDetected(false); // reset the state if subsequent uploads are valid
-        // Proceed to results page if a valid tyre image was processed
-        if (response.data.final_label) {
-          navigation.navigate('ResultsViaImage', {prediction: response.data.final_label});
-        } else {
-          Alert.alert('No Valid Tyre Images', 'Failed to process any valid tyre images.');
-        }
+        Alert.alert(
+          'No Valid Tyre Images',
+          'Failed to process any valid tyre images.',
+        );
       }
     } catch (error) {
-      console.error('Error uploading images:', error);
+      
       Alert.alert('Error', 'Failed to get prediction from server.');
     }
   };
+  
 
   // Toggle Detailed Instructions
   const toggleDetailedInstructions = () => {
     setShowDetailedInstructions(!showDetailedInstructions);
   };
+  
 
   return (
     <View style={themeStyle.container}>
@@ -165,31 +172,30 @@ const InspectionViaImage = ({navigation}) => {
       </TouchableOpacity>
 
       <Text style={themeStyle.title}>Inspect Via Images</Text>
-  
+
       {/* Error message for non-tyre images */}
       {nonTyreDetected && (
         <View style={themeStyle.nonTyreCard}>
           {/* <Text style={themeStyle.nonTyreText}>One or more uploaded images are not tyres. Please upload only tyre images.</Text> */}
         </View>
       )}
-  
+
       <Text style={themeStyle.subtitle}>Tyre Images</Text>
-  
+
       {/* Image Grid */}
       <View style={themeStyle.gridContainer}>
         {images.map((image, index) => (
           <View key={index} style={themeStyle.gridButton}>
-            <TouchableOpacity onPress={() => openModalForIndex(index)}>
+            <TouchableOpacity
+              style={themeStyle.imageCont}
+              onPress={() => openModalForIndex(index)}>
               {image && image.uri ? (
-                <Image
-                  source={{uri: image.uri}}
-                  style={themeStyle.gridImage}
-                />
+                <Image source={{uri: image.uri}} style={themeStyle.gridImage} />
               ) : (
                 <Text style={themeStyle.buttonText}>+</Text>
               )}
             </TouchableOpacity>
-  
+
             {image && (
               <TouchableOpacity
                 style={themeStyle.deleteButton}
@@ -200,9 +206,11 @@ const InspectionViaImage = ({navigation}) => {
           </View>
         ))}
       </View>
-  
+
       {/* Check Now Button */}
-      <TouchableOpacity style={themeStyle.checkbutton} onPress={sendImageForPrediction}>
+      <TouchableOpacity
+        style={themeStyle.checkbutton}
+        onPress={sendImageForPrediction}>
         <Text style={themeStyle.checkbuttonText}>Check Now</Text>
         <Ionicons name="arrow-forward" size={20} color="white" />
       </TouchableOpacity>
@@ -210,16 +218,27 @@ const InspectionViaImage = ({navigation}) => {
       {/* <Text style={themeStyle.mainHeading}>Inspection Instructions:</Text> */}
       <TouchableOpacity onPress={toggleDetailedInstructions}>
         <Text style={themeStyle.mainHeading}>
-          {showDetailedInstructions ? 'Hide Inspection Instructions ▲' : 'Show Inspection Instructions ▼'}
+          {showDetailedInstructions
+            ? 'Hide Inspection Instructions ▲'
+            : 'Show Inspection Instructions ▼'}
         </Text>
       </TouchableOpacity>
 
       {/* Display Detailed Instructions if toggled */}
       {showDetailedInstructions && (
         <>
-          <Text style={themeStyle.instructionsText}>‣ Upload a clear, high-resolution close-up photo focusing on the tire’s treads and sidewalls.</Text>
-          <Text style={themeStyle.instructionsText}>‣ Ensure the image has no background clutter to highlight the tire’s condition.</Text>
-          <Text style={themeStyle.instructionsText}>‣ Take multiple pictures from different angles to capture tread depth and any visible damage.</Text>
+          <Text style={themeStyle.instructionsText}>
+            ‣ Upload a clear, high-resolution close-up photo focusing on the
+            tire’s treads and sidewalls.
+          </Text>
+          <Text style={themeStyle.instructionsText}>
+            ‣ Ensure the image has no background clutter to highlight the tire’s
+            condition.
+          </Text>
+          <Text style={themeStyle.instructionsText}>
+            ‣ Take multiple pictures from different angles to capture tread
+            depth and any visible damage.
+          </Text>
         </>
       )}
 

@@ -14,9 +14,14 @@ const PrivacyPolicy = ({navigation}) => {
     toggleTheme();
   };
   const bulletPoints = [
-    'You must provide accurate and complete information when registering.',
-    'You are responsible for maintaining the confidentiality of your account information.',
-    'You agree to use the app only for lawful purposes and in accordance with applicable laws.',
+    // // 'You must provide accurate and complete information when registering.',
+    
+    // 'You are responsible for maintaining the confidentiality of your account information.',
+    // 'You agree to use the app only for lawful purposes and in accordance with applicable laws.',
+    'We collect images and tire serial numbers to provide tire health monitoring service',
+    'The collected data is used solely to analyze and assess the condition of your tires and improve app performance',
+   ' We do not share or sell your personal data to third parties without your consent, except as required by law',
+
   ];
 
   return (
@@ -62,72 +67,7 @@ const PrivacyPolicy = ({navigation}) => {
           kind, either express or implied. We do not warrant that the app will
           be error-free or uninterrupted.
         </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
-        <Text style={themeStyle.heading}>4. Disclaimers</Text>
-        <Text style={themeStyle.subtitle}>
-          The app is provided on an "as-is" basis without warranties of any
-          kind, either express or implied. We do not warrant that the app will
-          be error-free or uninterrupted.
-        </Text>
+       
       </ScrollView>
     </View>
   );

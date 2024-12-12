@@ -6,6 +6,8 @@ import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
 import com.facebook.react.ReactNativeHost
 import com.facebook.react.ReactPackage
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
@@ -17,6 +19,8 @@ class MainApplication : Application(), ReactApplication {
         object : DefaultReactNativeHost(this) {
             override fun getPackages(): List<ReactPackage> {
                 // Fetch the default packages list
+                 ReactNativePushNotificationPackage()  // Add this line
+
                 return PackageList(this).packages.apply {
                     // Add any manual packages here, for example:
                     // add(MyReactNativePackage())
