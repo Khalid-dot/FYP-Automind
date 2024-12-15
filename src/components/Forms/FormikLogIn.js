@@ -73,6 +73,7 @@ const FormikLogIn = ({navigation}) => {
         auth().signOut();
       }
     } catch (err) {
+      console.error('Error signing in:', err.message);
       setMessage(err.message);
     }
   };
@@ -270,8 +271,6 @@ const styles = theme =>
       fontWeight: 'bold',
       fontFamily: fonts.regular,
       marginRight: 5,
-      fontSize:14.5,
-      marginTop: -2.8,
     },
     socialButtons: {
       flexDirection: 'row',

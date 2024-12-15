@@ -41,6 +41,7 @@ const RecommendedProduct = ({ route }) => {
       setProducts(productList);
       setLoading(false);
     } catch (error) {
+      console.error('Error fetching recommended products:', error);
       Alert.alert('Error', 'Failed to fetch recommended products.');
     }
   };
@@ -94,18 +95,9 @@ const RecommendedProduct = ({ route }) => {
           <Text>No Image</Text>
         </View>
       )}
-<<<<<<< HEAD
-      <Text style={{ fontSize: 14, color: '#000', marginTop: 8 }}>{item.Name}
-      </Text>
-      <Text style={{ fontSize: 12.5, color: '#1A237E', marginTop: 4 }}>
-        Rs.{item.Price}
-      </Text>
-    </View>
-=======
       <Text style={{ fontSize: 14, color: '#000', marginTop: 8 }}>{item.Name}</Text>
       <Text style={{ fontSize: 12.5, color: '#1A237E', marginTop: 4 }}>Rs.{item.Price}</Text>
     </TouchableOpacity>
->>>>>>> 604d6dc (Updated Code F)
   );
 
   return (
@@ -127,18 +119,11 @@ const RecommendedProduct = ({ route }) => {
       </Text>
       <Text
         style={{
-<<<<<<< HEAD
-          fontSize: 16,  // Reduced subtitle font size to 14
-          color: theme.primary,
-          marginVertical: height * 0.015,  // Reduced margin
-        }}>
-=======
           fontSize: 16, // Reduced subtitle font size to 14
           color: theme.primary,
           marginVertical: height * 0.015, // Reduced margin
         }}
       >
->>>>>>> 604d6dc (Updated Code F)
         Products based on your tyre condition:
       </Text>
       {loading ? (

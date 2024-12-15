@@ -64,6 +64,7 @@ const InspectionViaSerial = ({ navigation }) => {
         showAlert('Could not detect the tire details from the image.');
       }
     } catch (error) {
+      console.error('Error sending image:', error);
       showAlert('Failed to process the image. Please try again.');
     } finally {
       setLoading(false);
@@ -104,6 +105,7 @@ const InspectionViaSerial = ({ navigation }) => {
           showAlert('Could not process the serial number.');
         }
       } catch (error) {
+        console.error('Error processing serial number:', error);
         showAlert('Failed to process the serial number. Please try again.');
       } finally {
         setLoading(false);

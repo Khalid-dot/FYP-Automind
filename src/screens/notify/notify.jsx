@@ -31,6 +31,7 @@ const WeatherNotifications = ({navigation}) => {
         );
         setWeatherData(response.data.list.slice(0, 7));
       } catch (error) {
+        console.error('Error fetching weather data:', error);
       }
     };
 

@@ -17,7 +17,7 @@ const PopUps = () => {
         if (notifications.length > 0) {
           // Pick a random notification
           const randomNotification = notifications[Math.floor(Math.random() * notifications.length)];
-          
+          // console.log("Random Notification:", randomNotification);
 
           // Set the random notification to state
           setNotification(randomNotification);
@@ -27,8 +27,11 @@ const PopUps = () => {
           setTimeout(() => {
             setIsVisible(false); // Hide the notification after 3 seconds
           }, 3000); // 3000ms = 3 seconds
-        } 
+        } else {
+          // console.log('No notifications found.');
+        }
       } catch (error) {
+        console.error("Error fetching notifications:", error);
       }
     };
 

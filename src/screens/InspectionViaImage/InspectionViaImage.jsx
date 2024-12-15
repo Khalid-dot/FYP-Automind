@@ -70,6 +70,7 @@ const InspectionViaImage = ({navigation}) => {
         toggleModal();
       })
       .catch(error => {
+        console.log('Error opening camera', error);
         Alert.alert('Error', 'Could not open camera.');
       });
   };
@@ -81,10 +82,7 @@ const InspectionViaImage = ({navigation}) => {
       cropping: true,
     })
       .then(selectedImage => {
-<<<<<<< HEAD
-=======
         console.log('image path>>>', selectedImage);
->>>>>>> 604d6dc (Updated Code F)
 
         const updatedImages = [...images];
         updatedImages[index] = {uri: selectedImage.path};
@@ -92,6 +90,7 @@ const InspectionViaImage = ({navigation}) => {
         toggleModal();
       })
       .catch(error => {
+        console.error('Error opening picker', error);
         Alert.alert('Error', 'Could not open image picker.');
       });
   };
@@ -149,7 +148,7 @@ const InspectionViaImage = ({navigation}) => {
         );
       }
     } catch (error) {
-      
+      console.error('Error uploading images:', error);
       Alert.alert('Error', 'Failed to get prediction from server.');
     }
   };
@@ -159,11 +158,7 @@ const InspectionViaImage = ({navigation}) => {
   const toggleDetailedInstructions = () => {
     setShowDetailedInstructions(!showDetailedInstructions);
   };
-<<<<<<< HEAD
-  
-=======
   console.log('all images>>>>', images);
->>>>>>> 604d6dc (Updated Code F)
 
   return (
     <View style={themeStyle.container}>

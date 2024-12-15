@@ -36,6 +36,7 @@ const Product = () => {
       setProducts(productList);
       setLoading(false);
     } catch (error) {
+      console.error('Error fetching products:', error);
       Alert.alert('Error', 'Failed to fetch products');
     }
   };

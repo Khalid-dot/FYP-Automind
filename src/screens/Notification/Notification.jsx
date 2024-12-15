@@ -42,10 +42,7 @@ const Notification = ({ navigation }) => {
       navigation.navigate(screen);
     } catch (error) {
       Alert.alert('Navigation Error', 'Unable to navigate to the selected screen.');
-<<<<<<< HEAD
-=======
       console.error('Navigation Error:', error);
->>>>>>> 604d6dc (Updated Code F)
     }
   };
 
