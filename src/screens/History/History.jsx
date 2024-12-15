@@ -111,7 +111,7 @@ const History = () => {
             </View>
             <View style={themeStyle.divider} />
             <View style={themeStyle.conditionContainer}>
-              <Text style={themeStyle.conditionText}>{result.result} Condition</Text>
+              <Text style={themeStyle.conditionText}>{result.result}</Text>
             </View>
           </View>
         ))}

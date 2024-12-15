@@ -71,9 +71,17 @@ const Setting = ({navigation}) => {
           password,
         );
         await user.reauthenticateWithCredential(credentials);
+<<<<<<< HEAD
 
         await deleteAccount();
       } catch (error) {
+=======
+        console.log('User reauthenticated successfully.');
+
+        await deleteAccount();
+      } catch (error) {
+        console.error('Error re-authenticating:', error);
+>>>>>>> 604d6dc (Updated Code F)
         Alert.alert(
           'Error',
           'Re-authentication failed. Please check your password and try again.',
@@ -89,16 +97,27 @@ const Setting = ({navigation}) => {
       try {
         const userRef = firestore().collection('users').doc(user.uid);
         await userRef.delete();
+<<<<<<< HEAD
         
 
         await user.delete();
         
+=======
+        console.log('User data deleted from Firestore.');
+
+        await user.delete();
+        console.log('User account deleted successfully.');
+>>>>>>> 604d6dc (Updated Code F)
 
         navigation.reset({
           index: 0,
           routes: [{name: 'LogIn'}],
         });
       } catch (error) {
+<<<<<<< HEAD
+=======
+        console.error('Error deleting account:', error);
+>>>>>>> 604d6dc (Updated Code F)
         Alert.alert(
           'Error',
           'There was an issue deleting your account. Please try again.',

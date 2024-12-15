@@ -34,7 +34,12 @@ const styles = theme =>
       fontWeight: '600',
       color: theme.primary,
       marginLeft: 0,
+<<<<<<< HEAD
 
+=======
+    // marginRight:50,
+      // textAlign:"center",
+>>>>>>> 604d6dc (Updated Code F)
     },
     containerWrapper: {
       width: 340,

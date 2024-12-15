@@ -67,7 +67,76 @@ const PrivacyPolicy = ({navigation}) => {
           kind, either express or implied. We do not warrant that the app will
           be error-free or uninterrupted.
         </Text>
+<<<<<<< HEAD
        
+=======
+        {/* <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text>
+        <Text style={themeStyle.heading}>4. Disclaimers</Text>
+        <Text style={themeStyle.subtitle}>
+          The app is provided on an "as-is" basis without warranties of any
+          kind, either express or implied. We do not warrant that the app will
+          be error-free or uninterrupted.
+        </Text> */}
+>>>>>>> 604d6dc (Updated Code F)
       </ScrollView>
     </View>
   );

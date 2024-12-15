@@ -68,7 +68,11 @@ const HomePage = ({ navigation }) => {
                 await displayNotification(notification);
 
                 if (i < notifications.length - 1) {
+<<<<<<< HEAD
                   await new Promise(resolve => setTimeout(resolve, 20000)); // Wait 10 seconds before next notification
+=======
+                  await new Promise(resolve => setTimeout(resolve, 10000)); // Wait 10 seconds before next notification
+>>>>>>> 604d6dc (Updated Code F)
                 }
               }
             };
@@ -76,7 +80,11 @@ const HomePage = ({ navigation }) => {
             showNotifications();
           }
         } catch (error) {
+<<<<<<< HEAD
           
+=======
+          console.error("Error fetching notifications:", error);
+>>>>>>> 604d6dc (Updated Code F)
         }
       }
     };
