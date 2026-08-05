@@ -27,27 +27,35 @@ import Product from './src/screens/Product/Product';
 import {UserProvider} from './src/screens/UserContext/UserContext';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import '@react-native-firebase/firestore';
-
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_STORAGE_BUCKET,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_APP_ID,
+  FIREBASE_DATABASE_URL,
+  GOOGLE_WEB_CLIENT_ID
+} from '@env';
 
 
 const Stack = createNativeStackNavigator();
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAjBFxyG6IQhcJ0l7oai4ivb140mlrx4LI',
-  authDomain: 'automind-f061d.firebaseapp.com',
-  projectId: 'automind-f061d',
-  storageBucket: 'automind-f061d.appspot.com',
-  messagingSenderId: '99208573863',
-  appId: '1:99208573863:android:985b5f75c3e79c65ba3c82',
-  databaseURL: 'https://automind-f061d.firebaseio.com',
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID,
+  databaseURL: FIREBASE_DATABASE_URL,
 };
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 GoogleSignin.configure({
-  webClientId:
-    '99208573863-g3t7cebkcb7d6kg2l1f6d7mdkdkr080i.apps.googleusercontent.com',
+  webClientId: GOOGLE_WEB_CLIENT_ID,
 });
 
 const App = () => {

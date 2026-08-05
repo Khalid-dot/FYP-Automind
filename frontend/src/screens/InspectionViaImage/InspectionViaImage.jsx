@@ -13,6 +13,7 @@ import {useTheme} from '../ThemeContext/ThemeContext';
 import ImagePicker from 'react-native-image-crop-picker';
 import Modal from 'react-native-modal';
 import axios from 'axios';
+import { AZURE_SERVER_URL } from '@env';
 
 const InspectionViaImage = ({navigation}) => {
   const [images, setImages] = useState([null, null, null, null]);
@@ -129,7 +130,7 @@ const InspectionViaImage = ({navigation}) => {
   
     try {
       const response = await axios.post(
-        'https://automindapp.azurewebsites.net/predict_multiple',
+        `${AZURE_SERVER_URL}/predict_multiple`,
         formData,
         {
           headers: {'Content-Type': 'multipart/form-data'},
