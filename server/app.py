@@ -1,4 +1,7 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 import time
 import requests
 import re
@@ -16,8 +19,8 @@ import numpy as np
 app = Flask(__name__)
 CORS(app)
 
-subscription_key = '9IvAlksxUB8bT7j7tueBvqUDMsPd8kpTCyKcSVBHsf4gNDvK4RhbJQQJ99AJACYeBjFXJ3w3AAAFACOGCRkg'
-endpoint = 'https://eastus.api.cognitive.microsoft.com/'
+subscription_key = os.getenv('AZURE_SUBSCRIPTION_KEY')
+endpoint = os.getenv('AZURE_ENDPOINT')
 
 # Load the pre-trained MobileNet model
 mobilenet_model = MobileNet(weights='imagenet')

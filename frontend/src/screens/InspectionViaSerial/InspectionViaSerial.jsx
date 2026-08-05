@@ -14,6 +14,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import axios from 'axios';
 import styles from './style';
 import { useTheme } from '../ThemeContext/ThemeContext';
+import { AZURE_SERVER_URL } from '@env';
 
 const InspectionViaSerial = ({ navigation }) => {
   const [serialNumber, setSerialNumber] = useState('');
@@ -48,7 +49,7 @@ const InspectionViaSerial = ({ navigation }) => {
       });
 
       const response = await axios.post(
-        'https://automindapp.azurewebsites.net/extract_serial',
+        `${AZURE_SERVER_URL}/extract_serial`,
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
@@ -89,7 +90,7 @@ const InspectionViaSerial = ({ navigation }) => {
       try {
         setLoading(true);
         const response = await axios.post(
-          'https://automindapp.azurewebsites.net/extract_serial',
+          `${AZURE_SERVER_URL}/extract_serial`,
           { serialNumber: currentSerialNumber },
           { headers: { 'Content-Type': 'application/json' } }
         );

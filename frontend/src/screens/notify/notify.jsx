@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './styles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useTheme} from '../ThemeContext/ThemeContext';
+import { OPENWEATHER_API_KEY } from '@env';
 
 const WeatherNotifications = ({navigation}) => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -25,7 +26,7 @@ const WeatherNotifications = ({navigation}) => {
             params: {
               q: 'Lahore',
               units: 'metric',
-              appid: '4b07c085d686394f81fdfe1effa1a1c5',
+              appid: OPENWEATHER_API_KEY,
             },
           },
         );

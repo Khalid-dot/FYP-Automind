@@ -1,79 +1,140 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# FYP-Automind: Tyre Inspection System
 
-# Getting Started
+Automind is an intelligent tyre inspection system that evaluates the condition of a vehicle's tyres using computer vision and Optical Character Recognition (OCR). The project consists of a **React Native** mobile application and a **Python/Flask** AI backend.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+---
 
-## Step 1: Start the Metro Server
+## 📁 PROJECT STRUCTURE
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+This repository is divided into two primary directories, each with its own responsibilities:
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **`frontend/`**
+  - **Description:** The mobile application user interface. Handles user authentication, capturing/uploading images, and displaying results.
+  - **Technologies:** React Native, JavaScript
+
+- **`server/`**
+  - **Description:** The AI backend API. Exposes endpoints for extracting serial numbers (Azure OCR) and predicting tyre conditions.
+  - **Technologies:** Python, Flask, TensorFlow / Keras
+
+---
+
+## ⚙️ PREREQUISITES
+
+Before you begin, ensure you have the following installed on your system:
+
+- **Node.js** (v18 or newer) and **npm** or **Yarn**
+- **Python** (3.8 or newer) and `pip`
+- **React Native Development Environment** (Android Studio / SDKs for Android, Xcode for iOS)
+
+---
+
+## 🔑 ENVIRONMENT CONFIGURATION
+
+This project uses a single `.env` file at the root of the project to manage secrets for both the frontend and the server.
+
+1. In the root directory, you will find a `.env.example` file.
+2. Duplicate it and rename the copy to `.env`.
+3. Open the `.env` file and replace the placeholder values (`YOUR_FIREBASE_API_KEY`, etc.) with your actual API keys and credentials.
+
+> **Note:** The `.env` file should never be committed to version control. It is already added to your `.gitignore`.
+
+### REQUIRED API KEYS & THEIR PURPOSES
+
+- **Azure Cognitive Services (`AZURE_SUBSCRIPTION_KEY`, `AZURE_ENDPOINT`)**
+  - **Purpose:** Used by the Python backend to perform Optical Character Recognition (OCR) on tyre images in order to extract serial numbers.
+- **Azure Server URL (`AZURE_SERVER_URL`)**
+  - **Purpose:** Used by the frontend to know where the backend API is hosted (e.g. `http://localhost:3000` for local development).
+- **Firebase Configuration (`FIREBASE_API_KEY`, `FIREBASE_PROJECT_ID`, etc.)**
+  - **Purpose:** Used by the React Native frontend to handle user authentication, real-time database queries, and cloud storage.
+- **Google Web Client ID (`GOOGLE_WEB_CLIENT_ID`)**
+  - **Purpose:** Used by the frontend to enable Google OAuth Sign-in functionality.
+- **OpenWeather API Key (`OPENWEATHER_API_KEY`)**
+  - **Purpose:** Used by the frontend to fetch and display weather forecasts and weather-related notifications.
+
+---
+
+## 🔌 PORTS CONFIGURATION
+
+By default, the application runs on the following local ports:
+
+- **Flask Backend (Server)**
+  - **Port:** `3000`
+  - **Description:** Exposes AI prediction endpoints (`/predict_multiple`, `/extract_serial`).
+
+- **Metro Bundler (Frontend)**
+  - **Port:** `8081`
+  - **Description:** Serves the React Native bundle to the emulator or physical device.
+
+> **Important:** If port `3000` is in use by another process on your machine, you must update the port in `server/app.py` and the `AZURE_SERVER_URL` in your `.env` file accordingly.
+
+---
+
+## 🚀 STEP-BY-STEP EXECUTION GUIDE
+
+To run the full application locally, you must start both the server and the frontend in separate terminal windows.
+
+### STEP 1: START THE PYTHON BACKEND
+
+Open a terminal and navigate to the `server` directory:
 
 ```bash
-# using npm
+# 1. Navigate to the server folder
+cd server
+
+# 2. (Optional but recommended) Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
+# 3. Install the required Python packages
+pip install -r requirements.txt
+
+# 4. Start the Flask server
+python app.py
+```
+*The server should now be running at `http://0.0.0.0:3000` or `http://localhost:3000`.*
+
+### STEP 2: START THE REACT NATIVE FRONTEND
+
+Open a **new** terminal window and navigate to the `frontend` directory:
+
+```bash
+# 1. Navigate to the frontend folder
+cd frontend
+
+# 2. Install the Node modules
+npm install
+# OR if you prefer yarn: yarn install
+
+# 3. Start the Metro Bundler
 npm start
-
-# OR using Yarn
-yarn start
+# OR: yarn start
 ```
 
-## Step 2: Start your Application
+### STEP 3: LAUNCH THE MOBILE APP
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+Leave the Metro Bundler running in its terminal. Open another **new** terminal window, navigate to the `frontend` directory, and run the app on your preferred platform:
 
-### For Android
-
+**For Android:**
 ```bash
-# using npm
+cd frontend
 npm run android
-
-# OR using Yarn
-yarn android
+# OR: yarn android
 ```
 
-### For iOS
-
+**For iOS (Mac only):**
 ```bash
-# using npm
+cd frontend
+cd ios && pod install && cd ..
 npm run ios
-
-# OR using Yarn
-yarn ios
+# OR: yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+The application should now install and launch on your running emulator, simulator, or connected physical device! 
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+---
 
-## Step 3: Modifying your App
+## 🛠️ TROUBLESHOOTING
 
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- **Server binding errors:** If Python throws an `Address already in use` error, another process is using sport `3000`. Kill the process or change the port in `app.py`.
+- **React Native build failures:** Ensure your Android/iOS environment variables are correctly set according to the [React Native Environment Setup guide](https://reactnative.dev/docs/environment-setup).
+- **Missing Env Variables in Frontend:** If React Native cannot find your `.env` variables, try clearing the Metro bundler cache by starting it with `npm start -- --reset-cache`.
