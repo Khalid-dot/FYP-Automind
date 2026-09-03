@@ -4378,7 +4378,7 @@ __metadata:
     react-native-modal: ^13.0.1
     react-native-paper: ^5.12.5
     react-native-push-notification: ^8.1.1
-    react-native-safe-area-context: ^4.14.0
+    react-native-safe-area-context: ^5.9.1
     react-native-screens: ^3.35.0
     react-native-vector-icons: ^10.2.0
     react-test-renderer: 18.3.1
@@ -9706,13 +9706,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:^4.14.0":
-  version: 4.14.0
-  resolution: "react-native-safe-area-context@npm:4.14.0"
+"react-native-safe-area-context@npm:^5.9.1":
+  version: 5.9.1
+  resolution: "react-native-safe-area-context@npm:5.9.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 394523434f3c447ff7ace6fddb00fb976b14a1e7bed378eb8ea684a73153962ebcdb51445d9c2052d0d4211f5a69354aafc05875989b7e79bf1c5b592e490438
+  checksum: ef708ab0b4480750552aa1947910bdfa26fd8e2864146342317e7713c00960c5da1d8dab72307f1e9da7dec3f7aff5c97d2eda349a1120dd3d14aa935331ae66
   languageName: node
   linkType: hard
 
