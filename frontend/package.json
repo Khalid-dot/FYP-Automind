@@ -43,7 +43,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.6",
+    "@babel/core": "^8.0.1",
     "@babel/preset-env": "^7.26.10",
     "@babel/runtime": "^7.26.10",
     "@react-native/babel-preset": "0.75.3",
