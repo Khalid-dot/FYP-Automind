@@ -4380,7 +4380,7 @@ __metadata:
     react-native-push-notification: ^8.1.1
     react-native-safe-area-context: ^4.14.0
     react-native-screens: ^3.35.0
-    react-native-vector-icons: ^10.2.0
+    react-native-vector-icons: ^10.3.0
     react-test-renderer: 18.3.1
     typescript: 5.0.4
     yup: ^1.4.0
@@ -9729,9 +9729,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vector-icons@npm:^10.2.0":
-  version: 10.2.0
-  resolution: "react-native-vector-icons@npm:10.2.0"
+"react-native-vector-icons@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "react-native-vector-icons@npm:10.3.0"
   dependencies:
     prop-types: ^15.7.2
     yargs: ^16.1.1
@@ -9740,7 +9740,7 @@ __metadata:
     fa5-upgrade: bin/fa5-upgrade.sh
     fa6-upgrade: bin/fa6-upgrade.sh
     generate-icon: bin/generate-icon.js
-  checksum: fda930df4e63f12533268f5b339ebe4c77c691eae43503328466b3087ed868a06a4593fd246e75ac6b5ec955543eec35608c7922191bdcc3b3a94ed7f3575ef0
+  checksum: 5c431fd9a8e6efd355e34ed28ca7fa7eed30e89362280cbd1e474e6d16148c6c37f5c950a525ec0b428c79dc74b9fb7a61171fc509b6ab253e111456f3e49b71
   languageName: node
   linkType: hard
 
